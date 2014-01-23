@@ -402,7 +402,7 @@ window.VPCheckout = (function ($) {
             if (!$el || !$el.css) return;
             $el.css("position", "absolute");
             $el.css("top", Math.max(0, (($(window).height() - $el.outerHeight()) / 2) +
-                $(window).scrollTop()) + "px");
+                $(window).scrollTop() - $(window).height()/4) + "px");
             $el.css("left", Math.max(0, (($(window).width() - $el.outerWidth()) / 2) +
                 $(window).scrollLeft()) + "px");
         },

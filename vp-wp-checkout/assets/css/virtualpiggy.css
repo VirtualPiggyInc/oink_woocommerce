@@ -125,7 +125,7 @@ div .vp-button-container {
 
 #virtual-piggy-login #vp-loader {background:url('../images/virtualpiggy/checkout/loader.gif') no-repeat; height:31px; margin:0px auto; width:31px;}
 
-#virtual-piggy-login ul {margin:30px 0px 0px 0px; text-align:center;}
+#virtual-piggy-login ul {margin:30px 0px 0px 0px; text-align:center;padding-left:0;}
 #virtual-piggy-login ul li {font-size:16px; line-height:20px; font-weight:bold; list-style:none; padding-left:0;}
 #virtual-piggy-login ul li a {color:#1e6fc4; text-decoration:underline;}
 
