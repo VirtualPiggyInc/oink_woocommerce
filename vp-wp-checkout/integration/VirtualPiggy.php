@@ -38,7 +38,7 @@ class VirtualPiggy {
 
     private function getPaymentService() {
         static $service;
-        
+
         if (!$service) {
             $service = new VirtualPiggyPaymentService($this->config);
         }
@@ -351,5 +351,14 @@ class VirtualPiggy {
 
     public function getCurrentChildShippingDetails() {
         return $this->getPaymentService()->GetChildAddress($this->getCurrentUserToken());
+    }
+
+    public function getPingHeaders($endpointUrl, $merchantIdentifier, $apiKey) {
+        $testConfig = $this->config;
+        $testConfig->transactionServiceURL = $endpointUrl;
+        $testConfig->merchantIdentifier = $merchantIdentifier;
+        $testConfig->apiKey = $apiKey;
+        $testVpPaymentService = new VirtualPiggyPaymentService($testConfig);
+        return $testVpPaymentService->PingHeaders();
     }
 }

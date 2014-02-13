@@ -138,3 +138,26 @@ div .vp-button-container {
 .virtualpiggy-checkout-parentconfirmation .opc {margin:30px 0px 30px 0px;}
 .virtualpiggy-checkout-parentconfirmation .opc li .step {font-family:Arial, Helvetica, sans-serif;}
 .virtualpiggy-checkout-parentconfirmation .opc li .step .form-list li {display:inline-block;}
+
+button.oink_button {
+    background-color: #FFAC47;
+    border-color: #ED6502 #A04300 #A04300 #ED6502;
+    border-style: solid;
+    border-width: 1px;
+    color: #FFFFFF;
+    cursor: pointer;
+    font: bold 12px arial,helvetica,sans-serif;
+    padding: 0 7px 1px;
+    text-align: center !important;
+    white-space: nowrap;
+}
+
+button.oink_failure {
+    background-color: #FCAF81;
+    border-color: #D24403 #A92000 #A92000 #D24403;
+    color: #FFFFFF;
+}
+button.oink_success {
+    background-color:#5B9657;
+    border-color: #46745E;
+}

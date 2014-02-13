@@ -1,13 +1,8 @@
-/**
- * @author Summa Solutions (c)
- */
-window.VPCheckout = (function ($) {
-    // Don't conflict if this file is added more than once
-    if (window.VPCheckout) {
-        return window.VPCheckout;
-    }
+window.VPCart = ( function($) {
+    if(window.VPCart)
+        return window.VPCart;
 
-    var VPCheckout = {
+    var VPCart = {
         data:{},
         version:function () {
             return VPParams.version;
@@ -30,30 +25,20 @@ window.VPCheckout = (function ($) {
 
             var self = this;
 
-            self.isLogged(function (isLogged, data) {
-                if (!isLogged) {
-                    self.doLogout(function () {
-                        self.view.init();
-                        self.initEvents();
-                    });
-                } else {
-                    self.view.init();
-                    self.initEvents();
-                    self.fetchShippingAddress();
-                }
+
+            this.doLogout(function () {
+                self.view.init();
+                self.initEvents();
             });
-
-
-
         },
         error:function (e) {
             alert(e);
         },
         isEnabled:function () {
             if (this.view.isShopp()) {
-                return !!$('option[value="virtualpiggy-com"]').size();
+                return false; //disabled by default for gift card site
             } else {
-                return !!$('#payment_method_virtual-piggy').size();
+                return true; //!!$('#payment_method_virtual-piggy').size();
             }
         },
         initEvents:function () {
@@ -74,25 +59,6 @@ window.VPCheckout = (function ($) {
                         }
                     });
                 })
-                .delegate('#place_order', 'click', function () {
-                    if($('input#payment_method_virtual-piggy').closest('span').hasClass('checked')) {
-                        self.isLogged(function (isLogged, data) {
-                            view.showContentBox();
-                            if (!isLogged) {
-                                view.showLoginBox();
-                            } else {
-                                view.showLoading();
-                                self.afterLogin(isLogged, '', data);
-                            }
-                        });
-                        return false;
-                    }
-                })
-                .delegate('div#payment ul.payment_methods li div, div#payment ul.payment_methods li label', 'click', function() {
-                    if(!$('input#payment_method_virtual-piggy').closest('span').hasClass('checked')) {
-                        view.showShippingForm();
-                    }
-                })
                 .delegate('#vp-close', 'click', function () {
                     view.reload();
                     view.hideContentBox();
@@ -109,28 +75,15 @@ window.VPCheckout = (function ($) {
                 .delegate('.virtualpiggy-button-place-order', 'click', function () {
                     self.placeOrder();
                 })
-                .delegate('#payment_method_virtual-piggy', 'change', function () {
-                    VPCheckout.view.hidePaymentOptions();
-                    VPCheckout.view.hideShippingForm();
-                })
                 .delegate('.virtualpiggy-form-login input', 'keyup', function (e) {
                     if (e.which == 13) {
                         self.doLogin();
                     }
-                });
-            /*
-             because closing the modal causes a page refresh, if the default method is oink this will create an endless loop.
-             if($('input#payment_method_virtual-piggy').closest('span').hasClass('checked')) { //oink is already the selected option at page load, set correct state.
-             $('#payment_method_virtual-piggy').trigger('click');
-             }
-             */
-            if($('input#payment_method_virtual-piggy').closest('span').hasClass('checked')) { //oink is already the selected option at page load, set correct state.
-                view.hideShippingForm();
-            }
+                })
         },
         isLogged:function (callback) {
-            if (!window.VPCheckout) {
-                window.VPCheckout.init();
+            if (!window.VPCart) {
+                window.VPCart.init();
             }
             $.ajax({
                 url:'?vp_action=get_data',
@@ -144,8 +97,8 @@ window.VPCheckout = (function ($) {
         doLogin:function () {
             var user, pass;
 
-            if (!window.VPCheckout) {
-                window.VPCheckout.init();
+            if (!window.VPCart) {
+                window.VPCart.init();
             }
 
             user = $('#vp-username').val();
@@ -197,58 +150,15 @@ window.VPCheckout = (function ($) {
 
             this.view.showLoading();
 
-            this.fetchShippingAddress();
+            this.routeToCheckout();
         },
-        validateShippingAddress:function (data) {
-            return data.Address && data.City && data.Zip && data.Country && data.State;
-        },
-        fetchShippingAddress:function () {
-            var self = this, data, callback;
-
-            if (!window.VPCheckout) {
-                window.VPCheckout.init();
-            }
-
-            data = {};
-
-            if (this.isParent()) {
-                data.child = this.data.child || this.data.selectedChild;
-            }
-
-            callback = function (response) {
-                response.data.name = self.data.selectedChild;
-                self.lastData = response.data;
-
-                self.view.hideContentBox();
-
-                if (!self.validateShippingAddress(response.data)) {
-                    alert('The address provided is invalid. Please check your VirtualPiggy configuration.');
-                    return;
-                }
-
-                self.view.populateShippingForm(response.data);
-                self.view.showShippingAddress(response.data);
-            };
-
-
-            this.setOptions(VPCheckout.shippingAddressFetcher || function () {
-                if (!window.VPCheckout) {
-                    window.VPCheckout.init();
-                }
-                $.ajax({
-                    url:'?vp_action=get_shipping_details',
-                    data:data,
-                    complete:function (xhr) {
-                        var json = $.parseJSON(xhr.responseText);
-
-                        callback(json);
-                    }
-                });
-            });
+        routeToCheckout:function() {
+            //set logged in with session, so on next page, will show correct state
+            $('input.checkout-button').trigger('click');
         },
         setOptions:function (cb) {
-            if (!window.VPCheckout) {
-                window.VPCheckout.init();
+            if (!window.VPCart) {
+                window.VPCart.init();
             }
             $.ajax({
                 url:'?vp_action=set_options',
@@ -266,16 +176,12 @@ window.VPCheckout = (function ($) {
                 return;
             }
 
-            this.view.hideShippingForm();
-            this.view.hidePaymentOptions();
-            this.view.hideLauncherButton();
-
             this.data = data;
 
             if (this.isParent()) {
                 this.view.showChildSelector(this.data.childs);
             } else {
-                this.fetchShippingAddress();
+                this.routeToCheckout();
             }
         },
         isParent:function () {
@@ -287,7 +193,7 @@ window.VPCheckout = (function ($) {
         }
     };
 
-    VPCheckout.view = {
+    VPCart.view = {
         LOADING_URL:'/wp-content/plugins/vp-wp-checkout/assets/images/loading.gif',
         BUTTON_URL:'https://cdn.virtualpiggy.com/public/images/accepting-150x49.png',
         LOGO_URL:'https://cdn.virtualpiggy.com/public/images/checkout-logo-192x75.png',
@@ -296,8 +202,8 @@ window.VPCheckout = (function ($) {
         init:function () {
             this.LOADING_URL = VPParams.baseURL + this.LOADING_URL;
 
-            this.$form = $('form.checkout, form#checkout');
-            this.addLauncherButton();
+            this.$form = $('form');
+            //this.addLauncherButton();
         },
         getContentBox:function () {
             if (this.$contentBox) {
@@ -415,7 +321,7 @@ window.VPCheckout = (function ($) {
         createPaymentOption:function (value, img) {
             var $container, $field, $label, id;
 
-            id = VPCheckout.id('payment-');
+            id = VPCart.id('payment-');
 
             $container = $('<div/>').addClass('virtualpiggy-payment-row');
 
@@ -516,16 +422,8 @@ window.VPCheckout = (function ($) {
                 this.hideWooCommerceShippingForm();
             }
         },
-        showShippingForm:function() {
-            if (this.isShopp()) {
-                $('#checkout ul').show();
-            } else {
-                $('#customer_details').show();
-                this.showWooCommerceShippingForm();
-            }
-        },
         hideWooCommerceShippingForm:function () {
-            var fields = VPCheckout.view.getWooCommerceFilledForm({});
+            var fields = VPCart.view.getWooCommerceFilledForm({});
 
             fields['#billing_company'] = '';
             fields['#billing_address_2'] = '';
@@ -538,20 +436,6 @@ window.VPCheckout = (function ($) {
             $('#shiptobilling-checkbox').hide();
             $('label[for=shiptobilling-checkbox]').hide();
             $('#payment_method_virtual-piggy').attr('checked', true);
-        },
-        showWooCommerceShippingForm:function () {
-            var fields = VPCheckout.view.getWooCommerceFilledForm({});
-
-            fields['#billing_company'] = '';
-            fields['#billing_address_2'] = '';
-
-            for (var f in fields) {
-                $(f).show();
-                $('label[for=' + f.replace(/#/, '') + ']').show();
-            }
-
-            $('#shiptobilling-checkbox').show();
-            $('label[for=shiptobilling-checkbox]').show();
         },
         hidePaymentOptions:function () {
             if (this.isShopp()) {
@@ -596,7 +480,7 @@ window.VPCheckout = (function ($) {
         },
         getWooCommerceFilledForm:function (data) {
             return {
-                '#billing_first_name':data.ParentName || VPCheckout.data.name,
+                '#billing_first_name':data.ParentName || VPCart.data.name,
                 '#billing_last_name':data.ParentLastName || '-',
                 '#billing_address_1':data.Address,
                 '#billing_city':data.City,
@@ -609,7 +493,7 @@ window.VPCheckout = (function ($) {
         },
         getShoppFilledForm:function (data) {
             return {
-                '#firstname':data.ParentName || VPCheckout.data.name,
+                '#firstname':data.ParentName || VPCart.data.name,
                 '#lastname':data.ParentLastName || '-',
                 '#billing-name':data.ParentName + ' ' + data.ParentLastName,
                 '#billing-address':data.Address,
@@ -651,8 +535,8 @@ window.VPCheckout = (function ($) {
         },
         selectVirtualPiggyPaymentMethod:function () {
             $('#payment_method_virtual-piggy').attr('checked', true);
-            VPCheckout.view.hidePaymentOptions();
-            VPCheckout.view.hideShippingForm();
+            VPCart.view.hidePaymentOptions();
+            VPCart.view.hideShippingForm();
         },
         reload:function () {
             window.location.reload();
@@ -664,24 +548,24 @@ window.VPCheckout = (function ($) {
         }
     };
 
-    VPCheckout.on = {};
-    for (var prop in VPCheckout) {
-        if (VPCheckout.hasOwnProperty(prop) && typeof VPCheckout[prop] == 'function') {
+    VPCart.on = {};
+    for (var prop in VPCart) {
+        if (VPCart.hasOwnProperty(prop) && typeof VPCart[prop] == 'function') {
             (function (name) {
-                var original = VPCheckout[name];
+                var original = VPCart[name];
 
-                VPCheckout[name] = function () {
+                VPCart[name] = function () {
                     var args = arguments || [];
-                    if (VPCheckout[name].pre && typeof VPCheckout[name].pre == 'function') {
-                        args = VPCheckout[name].pre.apply(VPCheckout, args) || arguments;
+                    if (VPCart[name].pre && typeof VPCart[name].pre == 'function') {
+                        args = VPCart[name].pre.apply(VPCart, args) || arguments;
                     }
 
-                    var value = original.apply(VPCheckout, args);
+                    var value = original.apply(VPCart, args);
 
-                    if (VPCheckout[name].post && typeof VPCheckout[name].post == 'function') {
+                    if (VPCart[name].post && typeof VPCart[name].post == 'function') {
                         args = [value, args];
 
-                        value = VPCheckout[name].post.apply(VPCheckout, args) || arguments;
+                        value = VPCart[name].post.apply(VPCart, args) || arguments;
                     }
 
                     return value;
@@ -691,20 +575,20 @@ window.VPCheckout = (function ($) {
     }
 
     $(function () {
-        if (VPCheckout.view.isShopp()) {
-            VPCheckout.init();
+        if (VPCart.view.isShopp()) {
+            VPCart.init();
             return;
         }
 
         window.intervalId = setInterval(function () {
-            if (VPCheckout.isEnabled()) {
+            if (VPCart.isEnabled()) {
                 $('#payment_method_virtual-piggy').attr('checked', false);
 
-                VPCheckout.init();
+                VPCart.init();
                 clearInterval(window.intervalId);
             }
         }, 50);
     });
 
-    return VPCheckout;
+    return VPCart;
 })(jQuery);

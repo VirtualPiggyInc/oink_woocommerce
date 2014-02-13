@@ -24,48 +24,129 @@ function get_vp_payment() {
 class vp_payment_wc extends WC_Payment_Gateway {
     const LOGIN_ERROR_MESSAGE = 'An error occurred. Please try again.';
 
+    //paymentMethodShownFor array('None','All Users','Only Registered Users','Only Guest Users')    checkoutType
+
+    public static $paymentMethodShownForOptions = array('none'=>'None','all'=>'All Users','registered'=>'Only Registered Users','guest'=>'Only Guest Users');
+    public static $checkoutTypeOptions = array('button_and_radio'=>'Checkout Button and Radio Select', 'button_only'=>'Checkout Button Only', 'radio_only'=>'Radio Select Only');
+
     function __construct() {
         $this->id = "virtual-piggy";
+        $this->method_title = __( 'Oink', 'woocommerce' );
         $this->icon = "";
         $this->has_fields = false;
 
         $this->init_form_fields();
         $this->init_settings();
-        
+        $this->settings['enabled'] = 'yes'; //making this setting always true so the checkmark shows up in payment gateways.
+
         // VirtualPiggy Configuration
         $this->title = $this->settings['title'];
-        
-       
+
+
         $this->description = $this->settings['description'];
         $this->HeaderNamespace = $this->settings['HeaderNamespace'];
         $this->propMerchantIdentifier = $this->settings['propMerchantIdentifier'];
         $this->propApiKey = $this->settings['propApiKey'];
-        $this->TransactionServiceEndpointAddress = $this->settings['TransactionServiceEndpointAddress'];
-        $this->TransactionServiceEndpointAddressWsdl = $this->settings['TransactionServiceEndpointAddressWsdl'];
-        $this->ParentServiceEndpointAddress = $this->settings['ParentServiceEndpointAddress'];
-        $this->ParentServiceEndpointAddressWsdl = $this->settings['ParentServiceEndpointAddressWsdl'];
-        $this->MerchantIdentifier = $this->settings['MerchantIdentifier'];
-        $this->APIkey = $this->settings['APIkey'];
+        $this->transactionServiceURL = $this->settings['transactionServiceURL'];
+        //$this->TransactionServiceEndpointAddressWsdl = $this->settings['TransactionServiceEndpointAddressWsdl'];
+        //$this->ParentServiceEndpointAddress = $this->settings['ParentServiceEndpointAddress'];
+        //$this->ParentServiceEndpointAddressWsdl = $this->settings['ParentServiceEndpointAddressWsdl'];
+        $this->MerchantIdentifier = $this->settings['merchantIdentifier'];
+        $this->APIkey = $this->settings['apiKey'];
         $this->Currency = $this->settings['Currency'];
-        $this->DefaultShipmentMethod = $this->settings['DefaultShipmentMethod'];
+        $this->DefaultShipmentMethod = $this->settings['DefaultShipmentMethod']; // TODO: remove, is this even used?
         $this->order_expiration_time = $this->settings['order_expiration_time'];
 
         $this->vp = new VirtualPiggy($this->settings);
 
-     //   add_action('woocommerce_update_options_payment_gateways', array(&$this, 'process_admin_options'));
-	    add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options'));                       
+        //   add_action('woocommerce_update_options_payment_gateways', array(&$this, 'process_admin_options'));
+        add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options'));
         add_action('virtualpiggy_callback', array(&$this, 'handleCallback'), 10, 1);
 
         listen_virtual_piggy_callbacks();
+
+    }
+
+    /*
+     * Overriding this function from the parent class for a double does of awesome!
+     */
+    function is_available() {
+        return $this->isOinkActionShown('radio');
+    }
+
+    function isOinkActionShown($actionType) {
+        $result = false;
+        if(isset($this->settings['checkoutType']) && isset($this->settings['paymentMethodShownFor'])) {
+            $isLoggedIn = is_user_logged_in();
+            if($this->settings['paymentMethodShownFor'] == 'all' ||
+                ($this->settings['paymentMethodShownFor'] == 'guest' && $isLoggedIn === false) ||
+                ($this->settings['paymentMethodShownFor'] == 'registered' && $isLoggedIn === true)) {
+                if($this->settings['checkoutType'] == 'button_and_radio' || $this->settings['checkoutType'] == $actionType.'_only') {
+                    $result = true;
+                }
+            }
+        }
+        return $result;
+    }
+
+    function isButtonShown() {
+        return $this->isOinkActionShown('radio');
+    }
+
+    function isRadioShown() {
+        return $this->isOinkActionShown('button');
     }
 
     function init_form_fields() {
         $this->form_fields = array(
-            'enabled' => array(
-                'title' => __('Enable/Disable', 'woothemes'),
+            'transactionServiceURL' => array(
+                'title' => __('Transaction Service URL', 'woothemes'),
+                'type' => 'text',
+                'description' => __('This is the oink endpoint URI which will be used.'),
+                'default' => __('https://integration.virtualpiggy.com/Services/TransactionService.svc', 'woothemes'),
+            ),
+            'merchantIdentifier' => array(
+                'title' => __('Merchant Identifier', 'woothemes'),
+                'type' => 'text',
+                'description' => __('Unique Merchant Identifier.', 'woothemes'),
+                'default' => __('71af1ad0-e24d-4e9a-8173-7b6c7ba4d475', 'woothemes'),
+            ),
+            'apiKey' => array(
+                'title' => __('API Key', 'woothemes'),
+                'type' => 'text',
+                'description' => __('Oink API Key.', 'woothemes'),
+                'default' => __('Eddy123', 'woothemes')
+            ),
+            'isTwoStepAuthEnabled' => array(
+                'title' => __('Two Step Authorization', 'woothemes'),
                 'type' => 'checkbox',
-                'label' => __('Enable Oink', 'woothemes'),
-                'default' => 'yes'
+                'label' => __('Use two step authorization?', 'woothemes'),
+                'default' => 'no'
+            ),
+            'Currency' => array(
+                'title' => __('Currency', 'woothemes'),
+                'type' => 'text',
+                'description' => __('Currency.', 'woothemes'),
+                'default' => __('USD', 'woothemes')
+            ),
+            'paymentMethodShownFor' => array(
+                'title' => __('Show payment method for', 'woothemes'),
+                'type' => 'select',
+                'options' => static::$paymentMethodShownForOptions,
+                'description' => __('Which users see oink as a checkout option?', 'woothemes'),
+                'default' => 'button_and_radio',
+            ),
+            'checkoutType' => array(
+                'title' => __('Checkout Type', 'woothemes'),
+                'type' => 'select',
+                'options' => static::$checkoutTypeOptions,
+                'description' => __('Where do users see Oink as a checkout option?','woothemes'),
+                'default' => 'none',
+            ),
+            'enabled' => array(
+                'type' => 'hidden',
+                'default' => 'yes',
+                'display' => false,
             ),
             'title' => array(
                 'title' => __('Title', 'woothemes'),
@@ -86,60 +167,45 @@ class vp_payment_wc extends WC_Payment_Gateway {
                 'default' => __('vp', 'woothemes'),
                 'style' => 'width:300px'
             ),
-            'TransactionServiceEndpointAddress' => array(
-                'title' => __('Transaction Service Endpoint Address', 'woothemes'),
-                'type' => 'textarea',
-                'description' => __('Transaction Service Endpoint Address.', 'woothemes'),
-                'default' => __('https://development.virtualpiggy.com/Services/TransactionService.svc', 'woothemes')
-            ),
-            'TransactionServiceEndpointAddressWsdl' => array(
-                'title' => __('Transaction Service Endpoint Address WSDL', 'woothemes'),
-                'type' => 'textarea',
-                'description' => __('Transaction Service Endpoint Address.', 'woothemes'),
-                'default' => __('https://development.virtualpiggy.com/services/TransactionService.svc?wsdl', 'woothemes')
-            ),
-            'ParentServiceEndpointAddress' => array(
-                'title' => __('Parent Service Endpoint Address WSDL', 'woothemes'),
-                'type' => 'textarea',
-                'description' => __('Parent Service Endpoint Address.', 'woothemes'),
-                'default' => __('https://development.virtualpiggy.com/services/JSON/ParentService.svc', 'woothemes')
-            ),
-            'ParentServiceEndpointAddressWsdl' => array(
-                'title' => __('Parent Service Endpoint Address WSDL', 'woothemes'),
-                'type' => 'textarea',
-                'description' => __('Parent Service Endpoint Address.', 'woothemes'),
-                'default' => __('https://development.virtualpiggy.com/services/JSON/ParentService.svc?wsdl', 'woothemes')
-            ),
-            'MerchantIdentifier' => array(
-                'title' => __('Unique Merchant Identifier', 'woothemes'),
-                'type' => 'textarea',
-                'description' => __('Unique Merchant Identifier.', 'woothemes'),
-                'default' => __('a1d2e935-7f4d-4c70-8dfb-f0e6cace5774', 'woothemes')
-            ),
-            'APIkey' => array(
-                'title' => __('API Key', 'woothemes'),
-                'type' => 'text',
-                'description' => __('Oink API Key.', 'woothemes'),
-                'default' => __('gadgetboom123', 'woothemes')
-            ),
-            'Currency' => array(
-                'title' => __('Currency', 'woothemes'),
-                'type' => 'text',
-                'description' => __('Currency.', 'woothemes'),
-                'default' => __('USD', 'woothemes')
-            )
         );
     }
 
     public function admin_options() {
+        VirtualPiggyWPHelper::addCSS('virtualpiggy');
         ?>
-    <h3><?php _e('Oink', 'woothemes'); ?></h3>
-    <table class="form-table">
-        <?php
-        $this->generate_settings_html();
-        ?>
-    </table>
+        <h3><?php _e('Oink', 'woothemes'); ?></h3>
+        <table class="form-table">
+            <?php
+            $this->generate_settings_html();
+            ?>
+        </table>
     <?php
+    }
+
+    public function generate_settings_html() {
+        ob_start();
+        parent::generate_settings_html();
+        $settingsHtml = ob_get_contents();
+        ob_end_clean();
+        $settingsRows = explode('<tr valign="top">', $settingsHtml);
+        foreach($settingsRows as $settingsRowK=>$settingsRow) {
+            if($settingsRowK == 4) {
+                echo $this->generate_test_connection_html();
+            }
+            echo '<tr valign="top">'.$settingsRow;
+        }
+    }
+
+    public function generate_test_connection_html() {
+        $oinkSettingsScript = plugins_url(VirtualPiggyWPHelper::getAssetURL() . "js/oink_settings.js");
+        $oinkLoadingImgSrc = plugins_url(VirtualPiggyWPHelper::getAssetURL() . "images/virtualpiggy/ajax-loader-tr.gif");
+        $html = '<tr valign="top"><th scope="row" class="titledesc"><!-- ---></th><td class="forminp"><button class="oink_button" id="oink_test_connection_btn"><span>Test Connection</span></button>';
+
+        $html .= '<input type="hidden" id="oink_ajax_spinner_img_url" value="'.$oinkLoadingImgSrc.'"/>';
+        $html .= '<input type="hidden" id="oink_ajax_action_test_connection_url" value="'.get_site_url().'/?vp_action=test_connection"/>';
+        $html .= '<script type="text/javascript" src="'.$oinkSettingsScript.'"></script>';
+        $html .= '</td></tr>';
+        return $html;
     }
 
     function payment_fields() {
@@ -167,7 +233,7 @@ class vp_payment_wc extends WC_Payment_Gateway {
         }
 
         ?><h2><?php _e('Betalning', 'woothemes') ?></h2>
-    <ul class="order_details bankgiro-postgiro_details"><?php
+        <ul class="order_details bankgiro-postgiro_details"><?php
 
         $fields = array(
             'bankgironr' => __('Bankgironummer', 'woothemes'),
@@ -190,8 +256,8 @@ class vp_payment_wc extends WC_Payment_Gateway {
         ignore_order_mails();
 
         //$order = &new woocommerce_order($order_id);
-		$order = new WC_Order( $order_id );
-		
+        $order = new WC_Order( $order_id );
+
         try {
             $result = $this->vp->processPaymentByWooCommerceOrder($order);
             $transactionIdentifier = $result->TransactionIdentifier;
@@ -302,6 +368,15 @@ class vp_payment_wc extends WC_Payment_Gateway {
         }
     }
 
+    public function _action_test_connection() {
+        $result = $this->vp->getPingHeaders(
+            $_REQUEST['transactionServiceURL'],
+            $_REQUEST['merchantIdentifier'],
+            $_REQUEST['apiKey']
+        );
+        $this->sendJSON($result);
+    }
+
     private function _action_login() {
         $result = null;
         $user = null;
@@ -319,6 +394,10 @@ class vp_payment_wc extends WC_Payment_Gateway {
         $user = $this->vp->getUserData();
 
         $this->sendJSON($result, $message, $user);
+    }
+
+    private function _action_set_logged_in_true() {
+        $_SESSION['vp_logged_in'] = true;
     }
 
     private function _action_logout() {
