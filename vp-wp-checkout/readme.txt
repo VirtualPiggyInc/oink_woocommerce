@@ -16,7 +16,7 @@ Installation of the module
 
 1. Upload `vp-wp-checkout.zip` to `/wp-content/plugins/` directory or download and install it throught wordpress repo.
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Fill out the needed values in the WooCommerce/Shopp Payment Gateways page 
+3. Fill out the needed values in the WooCommerce/Shopp Payment Gateways page
 
 == Screenshots ==
 
