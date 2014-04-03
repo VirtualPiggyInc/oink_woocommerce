@@ -15,34 +15,9 @@ class VirtualPiggyPaymentService implements IPaymentService {
         $client = new VirtualPiggySoapClient($this->config);
         return $client;
     }
-    /**
-     * Default method to generate soap client with WCF security headers
-     * set properly
-     */
-    private function GetNativeSoapClient() {
-        $client = new SOAPClient($this->config->TransactionServiceEndpointAddressWsdl, array("trace" => 1));
-        $headers = array();
 
-        $headers[] = new SoapHeader($this->config->HeaderNamespace,
-                        $this->config->propMerchantIdentifier,
-                        $this->config->MerchantIdentifier);
-
-        $headers[] = new SoapHeader($this->config->HeaderNamespace,
-                        $this->config->propApiKey,
-                        $this->config->APIkey);
-        $client->__setSoapHeaders($headers);
-        
-        return $client;
-    }
-    
     private function GetSoapClient(){
-        if(/*class_exists("SOAPClient")*/false){
-        	//$this->msg = "native";
-            return $this->GetNativeSoapClient();
-        }else{
-        	//$this->msg = "vp";
-            return $this->GetVPSoapClient();
-        }
+        return $this->GetVPSoapClient();
     }
 
     /**
@@ -86,7 +61,7 @@ class VirtualPiggyPaymentService implements IPaymentService {
                 'userName' => $name,
                 'password' => $password,
             );
-            $result = $client->AuthenticateUser($params);           
+            $result = $client->AuthenticateUser($params);
             $result_dto->ErrorMessage = $result->AuthenticateUserResult->ErrorMessage;
             $result_dto->Token = $result->AuthenticateUserResult->Token;
             $result_dto->Status = $result->AuthenticateUserResult->Status;
@@ -94,10 +69,10 @@ class VirtualPiggyPaymentService implements IPaymentService {
         } catch (Exception $e) {
             $result_dto->ErrorMessage = "AuthenticateUser-Exception occured: " . $e;
         }
-        
-       return $result_dto;
-                
-        
+
+        return $result_dto;
+
+
     }
 
     public function GetChildProfile($token) {
@@ -217,7 +192,7 @@ class VirtualPiggyPaymentService implements IPaymentService {
     /**
      * Method to return a Parent's list of children he can purchase items for
      * <param name="token">Parent Security Token</param>
-     * @return Array of entities 
+     * @return Array of entities
      */
     public function GetAllChildren($token) {
         $result_dto = new dtoResultObject();
@@ -342,7 +317,7 @@ class VirtualPiggyPaymentService implements IPaymentService {
             $result = $client->ProcessTransaction($params);
             if ((string)$result->ProcessTransactionResult->Status == 'false'){
                 $result->ProcessTransactionResult->Status = false;
-            } 
+            }
             $result_dto->Xml = $client->__getLastResponse();
             $result_dto->ErrorMessage = $result->ProcessTransactionResult->ErrorMessage;
             $result_dto->Status = $result->ProcessTransactionResult->Status;
@@ -370,7 +345,7 @@ class VirtualPiggyPaymentService implements IPaymentService {
             $result = $client->ProcessParentTransaction($params);
             if ((string)$result->ProcessParentTransactionResult->Status == 'false'){
                 $result->ProcessParentTransactionResult->Status = false;
-            } 
+            }
             $result_dto->Xml = $client->__getLastResponse();
             $result_dto->ErrorMessage = $result->ProcessParentTransactionResult->ErrorMessage;
             $result_dto->Status = $result->ProcessParentTransactionResult->Status;
@@ -411,7 +386,7 @@ class VirtualPiggyPaymentService implements IPaymentService {
             return false;
         }
         if(isset($result->PingHeadersResult->scalar)){
-           return ($result->PingHeadersResult->scalar == 'true')?1:0;
+            return ($result->PingHeadersResult->scalar == 'true')?1:0;
         }
         return $result->PingHeadersResult;
     }

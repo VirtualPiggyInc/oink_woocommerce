@@ -17,8 +17,8 @@ class VirtualPiggySoapClient{
     }
 
     public function AuthenticateUser($params){
-    	
-    	//echo "exititing";exit;
+
+        //echo "exititing";exit;
         $method = "AuthenticateUser";
         $response = $this->MakeGenericSoapCall($method,$params);
         $result = new stdClass();
@@ -218,7 +218,7 @@ class VirtualPiggySoapClient{
     ==============================================*/
     private function MakeGenericSoapCall($method, $params){
         $soap_envelope = $this->GenerateSoapEnvelope($method, $params);
-        $url = $this->config->TransactionServiceEndpointAddress."?".$method;
+        $url = $this->config->transactionServiceURL."?".$method;
         $SOAPAction = 'http://tempuri.org/ITransactionService/'.$method;
 
         $headers = array(
@@ -260,8 +260,8 @@ class VirtualPiggySoapClient{
         $envelope = '
                 <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://tempuri.org/" xmlns:ns2="vp">
                 <SOAP-ENV:Header>
-                    <ns2:MerchantIdentifier>'.$this->config->MerchantIdentifier.'</ns2:MerchantIdentifier>
-                    <ns2:APIkey>'.$this->config->APIkey.'</ns2:APIkey>
+                    <ns2:MerchantIdentifier>'.$this->config->merchantIdentifier.'</ns2:MerchantIdentifier>
+                    <ns2:APIkey>'.$this->config->apiKey.'</ns2:APIkey>
                 </SOAP-ENV:Header>
                 <SOAP-ENV:Body>
                     '.$body.'

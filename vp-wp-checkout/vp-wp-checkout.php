@@ -14,8 +14,45 @@ if (!defined('ABSPATH')) {
 
 add_action('plugins_loaded', 'init_vp_payment', 0);
 
+add_action('woocommerce_after_checkout_form', 'oink_checkout_hidden_inputs_view', 0);
+
+add_action('woocommerce_after_cart_contents', 'oink_cart_button_view', 0);
+
+add_action('woocommerce_after_cart_totals', 'vp_cart_init');
+
+function vp_cart_init() {
+    VirtualPiggyWPHelper::addCSS('virtualpiggy');
+
+    $checkoutScript = plugins_url(VirtualPiggyWPHelper::getAssetURL() . "js/cart.js");
+
+    wp_enqueue_script('vpc', $checkoutScript, array(), '1.0.0', true);
+    wp_localize_script('vpc', 'VPParams', array(
+        'baseURL' => get_site_url()
+    ));
+}
+
+function oink_checkout_hidden_inputs_view() {
+    $oinkRadioEnabled = false;
+    $oinkButtonEnabled = false;
+    $vpGateway = get_vp_payment();
+    if(isset($vpGateway) && $vpGateway->isButtonShown() === true)
+        $oinkButtonEnabled = true;
+
+    if(isset($vpGateway) && $vpGateway->isRadioShown() === true)
+        $oinkRadioEnabled = true;
+    echo '<input type="hidden" id="oink_radio_enabled" value="'.($oinkRadioEnabled?'1':'0').'"/>';
+    echo '<input type="hidden" id="oink_button_enabled" value="'.($oinkButtonEnabled?'1':'0').'"/>';
+}
+
+function oink_cart_button_view() {
+    $vpGateway = get_vp_payment();
+    if(isset($vpGateway) && $vpGateway->isButtonShown() === true) {
+        echo '<tr><td colspan="6"><img src="https://cdn.virtualpiggy.com/public/images/accepting-150x49.png" class="virtualpiggy-button" style="width:150px; height: 49px; margin: 0;"></td></tr>';
+    }
+}
+
 function init_vp_payment() {
-	
+
     //if (class_exists('woocommerce_payment_gateway')) {
     if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
         define('VP_IS_SHOPP', false);
