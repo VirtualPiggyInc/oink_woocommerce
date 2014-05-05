@@ -178,11 +178,7 @@ window.VPCart = ( function($) {
 
             this.data = data;
 
-            if (this.isParent()) {
-                this.view.showChildSelector(this.data.childs);
-            } else {
-                this.routeToCheckout();
-            }
+            this.routeToCheckout();
         },
         isParent:function () {
             try {

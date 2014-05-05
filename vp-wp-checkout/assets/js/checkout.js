@@ -9,6 +9,7 @@ window.VPCheckout = (function ($) {
 
     var VPCheckout = {
         data:{},
+        isFormSubmission:false,
         version:function () {
             return VPParams.version;
         },
@@ -35,11 +36,17 @@ window.VPCheckout = (function ($) {
                     self.doLogout(function () {
                         self.view.init();
                         self.initEvents();
+                        self.view.showLoginBox();
                     });
                 } else {
+                    self.isFormSubmission = true;
                     self.view.init();
+                    var form_data = self.view.$form.data();
+
+                    if ( form_data["blockUI.isBlocked"] != 1 )
+                        self.view.$form.block({message: null, overlayCSS: {background: '#fff url(' + woocommerce_params.ajax_loader_url + ') no-repeat center', backgroundSize: '16px 16px', opacity: 0.6}});
                     self.initEvents();
-                    self.fetchShippingAddress();
+                    self.afterLogin(isLogged, '', data);
                 }
             });
 
@@ -76,12 +83,18 @@ window.VPCheckout = (function ($) {
                 })
                 .delegate('#place_order', 'click', function () {
                     if($('input#payment_method_virtual-piggy').closest('span').hasClass('checked')) {
+                        var form_data = view.$form.data();
+
+                        if ( form_data["blockUI.isBlocked"] != 1 )
+                            view.$form.block({message: null, overlayCSS: {background: '#fff url(' + woocommerce_params.ajax_loader_url + ') no-repeat center', backgroundSize: '16px 16px', opacity: 0.6}});
+
                         self.isLogged(function (isLogged, data) {
-                            view.showContentBox();
                             if (!isLogged) {
+                                view.$form.unblock();
+                                view.showContentBox();
                                 view.showLoginBox();
                             } else {
-                                view.showLoading();
+                                self.isFormSubmission = true;
                                 self.afterLogin(isLogged, '', data);
                             }
                         });
@@ -228,6 +241,10 @@ window.VPCheckout = (function ($) {
 
                 self.view.populateShippingForm(response.data);
                 self.view.showShippingAddress(response.data);
+                self.view.$form.unblock();
+                if(self.isFormSubmission) {
+                    self.view.$form.submit();
+                }
             };
 
 
@@ -270,9 +287,11 @@ window.VPCheckout = (function ($) {
             this.view.hidePaymentOptions();
             this.view.hideLauncherButton();
 
-            this.data = data;
-
-            if (this.isParent()) {
+            if(typeof this.data.role === "undefined") {
+                this.data = data;
+            }
+            //go go super hack to facilitate form auto submission when coming from cart page button.
+            if (this.isParent() && (typeof this.data.selectedChild === "undefined")) {
                 this.view.showChildSelector(this.data.childs);
             } else {
                 this.fetchShippingAddress();
@@ -448,6 +467,14 @@ window.VPCheckout = (function ($) {
             this.center(this.getContentBox);
         },
         showChildSelector:function (childs) {
+            var contentBoxHidden = false;
+            var contentBox = null;
+            if($('.virtualpiggy-loginbox').length == 0) {
+                contentBoxHidden = true;
+                contentBox = this.getContentBox();
+
+                this.center(contentBox);
+            }
             this.cleanBox();
 
             $(".virtualpiggy-loginbox").css("height","260px");
@@ -476,6 +503,9 @@ window.VPCheckout = (function ($) {
             $fields.append(this.createLabel($select, 'This transaction is for'));
 
             this.getContentBox().append($fields);
+            if(contentBoxHidden) {
+                contentBox.show();
+            }
         },
         showPaymentSelector:function (payments) {
             var $fields, $radios, self;
@@ -564,6 +594,8 @@ window.VPCheckout = (function ($) {
             $('img.virtualpiggy-button').hide();
         },
         showShippingAddress:function (data) {
+            if($('div#oink_shipping_address_view').length > 0)
+                return;
             var address = '';
 
             address += data.Address;
@@ -580,11 +612,11 @@ window.VPCheckout = (function ($) {
             if (this.isShopp()) {
                 $('#cart')
                     .before($('<h3/>').html('Shipping Address'))
-                    .before($('<p/>').html(address));
+                    .before($('<p/>').html('<div id="oink_shipping_address_view">'+address+'</div>'));
             } else {
                 $('#order_review_heading')
                     .before($('<h3/>').html('Shipping Address'))
-                    .before($('<p/>').html(address));
+                    .before($('<p/>').html('<div id="oink_shipping_address_view">'+address+'</div>'));
             }
 
             this.hideLauncherButton();
