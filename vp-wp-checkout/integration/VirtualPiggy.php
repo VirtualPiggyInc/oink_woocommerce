@@ -332,7 +332,7 @@ class VirtualPiggy {
         $this->user->selectedPaymentMethod = $this->getPaymentIdentifier($paymentName);
     }
 
-    private function getSelectedPaymentMethod() {
+    public function getSelectedPaymentMethod() {
         return $this->user->selectedPaymentMethod;
     }
 
@@ -345,7 +345,7 @@ class VirtualPiggy {
         return $this->user->selectedChild;
     }
 
-    private function getSelectedChildName() {
+    public function getSelectedChildName() {
         return $this->user->selectedChildName;
     }
 
