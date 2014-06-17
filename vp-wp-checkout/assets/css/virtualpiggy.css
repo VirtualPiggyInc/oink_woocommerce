@@ -210,16 +210,17 @@ div .vp-button-container {
 
 #virtual-piggy-login p#virtual-piggy-errors-container {
     display:block;
-    height:14px;
-    line-height:20px;
-    margin:0px 0px 10px 5px;
+    position:relative;
+    top: -20px;
+    font-size:12px;
+    margin: 5px;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     color:#ff0800
 }
 p#errorMessage{
     display:block;
-    height:18px;
-    margin:0px 0px 13px 0px;
+    margin:0px 0px 5px 5px;
+    font-size:12px;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     color:#ff0800
 }
@@ -249,8 +250,8 @@ p#errorMessage{
     background: #F57D28;
     color: #ffffff;
 }
-fieldset {
-    margin:20px;
+fieldset{
+    margin-bottom:5px;
 }
 .what-is-VP {
     display:block;
