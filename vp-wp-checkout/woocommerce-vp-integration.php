@@ -23,9 +23,6 @@ function get_vp_payment() {
 //class vp_payment_wc extends woocommerce_payment_gateways {
 class vp_payment_wc extends WC_Payment_Gateway {
     const LOGIN_ERROR_MESSAGE = 'An error occurred. Please try again.';
-
-    //paymentMethodShownFor array('None','All Users','Only Registered Users','Only Guest Users')    checkoutType
-
     public static $paymentMethodShownForOptions = array('none'=>'None','all'=>'All Users','registered'=>'Only Registered Users','guest'=>'Only Guest Users');
     public static $checkoutTypeOptions = array('button_and_radio'=>'Checkout Button and Radio Select', 'button_only'=>'Checkout Button Only', 'radio_only'=>'Radio Select Only');
 
@@ -90,11 +87,11 @@ class vp_payment_wc extends WC_Payment_Gateway {
     }
 
     function isButtonShown() {
-        return $this->isOinkActionShown('radio');
+        return $this->isOinkActionShown('button');
     }
 
     function isRadioShown() {
-        return $this->isOinkActionShown('button');
+        return $this->isOinkActionShown('radio');
     }
 
     function init_form_fields() {
@@ -134,14 +131,14 @@ class vp_payment_wc extends WC_Payment_Gateway {
                 'type' => 'select',
                 'options' => static::$paymentMethodShownForOptions,
                 'description' => __('Which users see oink as a checkout option?', 'woothemes'),
-                'default' => 'button_and_radio',
+                'default' => 'all',
             ),
             'checkoutType' => array(
                 'title' => __('Checkout Type', 'woothemes'),
                 'type' => 'select',
                 'options' => static::$checkoutTypeOptions,
                 'description' => __('Where do users see Oink as a checkout option?','woothemes'),
-                'default' => 'none',
+                'default' => 'button_and_radio',
             ),
             'enabled' => array(
                 'type' => 'hidden',
@@ -254,8 +251,6 @@ class vp_payment_wc extends WC_Payment_Gateway {
         global $woocommerce;
 
         ignore_order_mails();
-
-        //$order = &new woocommerce_order($order_id);
         $order = new WC_Order( $order_id );
 
         try {
@@ -265,7 +260,11 @@ class vp_payment_wc extends WC_Payment_Gateway {
             $order->add_order_note('Transaction Identifier: ' . $transactionIdentifier);
         } catch (Exception $e) {
             $order->update_status('failed', $e->getMessage());
-            $woocommerce->add_error(__('VirtualPiggy error:', 'woocommerce') . $e->getMessage());
+            if(function_exists($woocommerce->wc_add_error))
+                $woocommerce->wc_add_notice($e->getMessage(),'error');
+            else
+                $woocommerce->add_error($e->getMessage());
+
             return array(
                 'result' => 'fail'
             );
@@ -293,7 +292,8 @@ class vp_payment_wc extends WC_Payment_Gateway {
         // Return thankyou redirect
         return array(
             'result' => 'success',
-            'redirect' => add_query_arg('key', $order->order_key, add_query_arg('order', $order_id, get_permalink(get_option('woocommerce_thanks_page_id'))))
+            'redirect' => add_query_arg('key', $order->order_key,
+                add_query_arg('order', $order_id, $this->get_return_url($this->order)))
         );
     }
 
@@ -409,6 +409,7 @@ class vp_payment_wc extends WC_Payment_Gateway {
     }
 
     private function _action_get_data() {
+
         $this->sendJSON(true, '', $this->vp->getUserData());
     }
 
@@ -421,21 +422,30 @@ class vp_payment_wc extends WC_Payment_Gateway {
     }
 
     private function _action_get_shipping_details() {
-        if ($this->vp->isParent()) {
+        if ($this->vp->isParent())
             $result = $this->vp->getShippingDetailsBySelectedChild();
-        } else {
+        else
             $result = $this->vp->getCurrentChildShippingDetails();
-        }
 
-        $this->sendJSON(true, '', array(
+        $data = array(
             'Address' => $result->Address,
             'City' => $result->City,
             'State' => $result->State,
             'Zip' => $result->Zip,
             'Country' => $result->Country,
             'Phone' => $result->Phone,
-            'ParentEmail' => $result->ParentEmail
-        ));
+            'ParentEmail' => $result->ParentEmail,
+            'Name' => $result->ChildName,
+            'ParentName' => $result->ParentName,
+            'ErrorMessage' => $result->ErrorMessage
+        );
+        if (empty($data['ErrorMessage']))
+            $status = true;
+        else {
+            $status = false;
+            wc_add_notice($data['ErrorMessage'], 'error');
+        }
+        $this->sendJSON($status, $data['ErrorMessage'], $data);
     }
 
     private function sendJSON($status = true, $message = '', $data = array()) {
@@ -447,10 +457,6 @@ class vp_payment_wc extends WC_Payment_Gateway {
         die();
     }
 
-    /**
-     * TODO IMPLEMENT!
-     * @param $data
-     */
     public function handleCallback($data) {
         if (defined('VP_CALLBACK_HANDLED')) {
             return;

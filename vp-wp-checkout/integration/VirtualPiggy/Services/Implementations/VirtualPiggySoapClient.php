@@ -17,8 +17,6 @@ class VirtualPiggySoapClient{
     }
 
     public function AuthenticateUser($params){
-
-        //echo "exititing";exit;
         $method = "AuthenticateUser";
         $response = $this->MakeGenericSoapCall($method,$params);
         $result = new stdClass();

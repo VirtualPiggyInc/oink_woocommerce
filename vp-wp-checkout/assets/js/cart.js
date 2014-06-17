@@ -38,7 +38,7 @@ window.VPCart = ( function($) {
             if (this.view.isShopp()) {
                 return false; //disabled by default for gift card site
             } else {
-                return true; //!!$('#payment_method_virtual-piggy').size();
+                return true;
             }
         },
         initEvents:function () {
@@ -46,7 +46,6 @@ window.VPCart = ( function($) {
 
             self = this;
             view = this.view;
-
             $(document)
                 .delegate('.virtualpiggy-button, #payment_method_virtual-piggy', 'click', function () {
                     self.isLogged(function (isLogged, data) {
@@ -59,12 +58,25 @@ window.VPCart = ( function($) {
                         }
                     });
                 })
+                .delegate('div#payment ul.payment_methods li div, div#payment ul.payment_methods li label', 'click', function() {
+                    if(!$('input#payment_method_virtual-piggy').closest('span').hasClass('checked')) {
+                        view.showShippingForm();
+                    }
+                })
                 .delegate('#vp-close', 'click', function () {
-                    view.reload();
                     view.hideContentBox();
+                    self.resetForm();
+                    location.reload(true);
                 })
                 .delegate('.virtualpiggy-button-login', 'click', function () {
                     self.doLogin();
+                })
+                .delegate('.virtualpiggy-button-cancel', 'click', function() {
+                    self.doLogout();
+                    view.hideContentBox();
+                    self.resetForm();
+                    view.$form.unblock();
+                    location.reload(true);
                 })
                 .delegate('.vp-select-child-button', 'click', function () {
                     self.doChildSelection();
@@ -72,14 +84,23 @@ window.VPCart = ( function($) {
                 .delegate('.vp-select-payment-button', 'click', function () {
                     self.doPaymentSelection();
                 })
-                .delegate('.virtualpiggy-button-place-order', 'click', function () {
-                    self.placeOrder();
+                .delegate('#payment_method_virtual-piggy', 'change', function () {
+                    VPCheckout.view.hidePaymentOptions();
+                    VPCheckout.view.hideShippingForm();
                 })
-                .delegate('.virtualpiggy-form-login input', 'keyup', function (e) {
+                .delegate('#vp-password', 'keyup', function (e) {
                     if (e.which == 13) {
                         self.doLogin();
                     }
                 })
+                .delegate('#vp-username', 'keyup', function (e) {
+                    if (e.which == 13) {
+                        self.doLogin();
+                    }
+                });
+            if($('input#payment_method_virtual-piggy').closest('span').hasClass('checked')) { //oink is already the selected option at page load, set correct state.
+                view.hideShippingForm();
+            }
         },
         isLogged:function (callback) {
             if (!window.VPCart) {
@@ -137,19 +158,16 @@ window.VPCart = ( function($) {
         doChildSelection:function () {
             this.data.selectedChild = $('#vp-select-child').val();
 
-            if (this.isParent()) {
-                this.view.showPaymentSelector(this.data.payment);
-            }
+            this.view.showPaymentSelector(this.data.payment);
         },
         doPaymentSelection:function () {
-            this.data.selectedPayment = $('.virtualpiggy-payment-row input:checked').val();
+            this.data.selectedPayment = $('#vp-select-payment').val();
 
             if (!this.data.selectedPayment) {
-                return this.error('Select a payment option.');
+                return this.errorMessage('vp-select-payment','Select a payment method');
             }
 
             this.view.showLoading();
-
             this.routeToCheckout();
         },
         routeToCheckout:function() {
@@ -169,10 +187,17 @@ window.VPCart = ( function($) {
                 complete:cb || $.noop
             });
         },
+        errorMessage:function(element, message) {
+            var div = document.getElementById(element);
+            div.innerHTML = div.innerHTML + message;
+        },
+        hideLoading:function () {
+            $("#vp-loader").hide();
+        },
         afterLogin:function (success, message, data) {
             if (!success) {
-                this.view.hideContentBox();
-                alert(message);
+                this.errorMessage('virtual-piggy-errors-container', message);
+                this.hideLoading();
                 return;
             }
 
@@ -199,7 +224,6 @@ window.VPCart = ( function($) {
             this.LOADING_URL = VPParams.baseURL + this.LOADING_URL;
 
             this.$form = $('form');
-            //this.addLauncherButton();
         },
         getContentBox:function () {
             if (this.$contentBox) {
@@ -211,7 +235,6 @@ window.VPCart = ( function($) {
                 .addClass('virtualpiggy-loginbox');
 
             this.$contentBox.appendTo(document.body);
-
             return this.$contentBox;
         },
         showLoginBox:function () {
@@ -219,7 +242,6 @@ window.VPCart = ( function($) {
 
             var popup_content = '<div id="virtual-piggy-login">';
             popup_content +=        '<div id="vp-close"></div>';
-            popup_content +=            '<p>To checkout, please input your username and password below</p>';
             popup_content +=            '<div class="col-2">';
             popup_content +=                '<form id="virtual-piggy-login-form" method="post">';
             popup_content +=                    '<fieldset>';
@@ -241,19 +263,16 @@ window.VPCart = ( function($) {
             popup_content +=            '</div>';
             popup_content +=            '<div class="col-2">';
             popup_content +=                '<div class="buttons-set" id="buttons-set">';
-            popup_content +=                    '<button class="login-form-button virtualpiggy-button-login" type="button"></button>';
-            popup_content +=                    '<a href="https://www.oink.com" title="Sign Up" class="signup-form-button" target="_blank"></a>';
+            popup_content +=                    '<button class="login-form-button virtualpiggy-button-login" type="button">Continue</button>';
+            popup_content +=                    '<button href="https://www.oink.com" title="Sign Up" class="signup-form-button">Sign Up</button>';
             popup_content +=                '</div>';
             popup_content +=            '</div>';
             popup_content +=            '<div id="vp-loader" style="display:none"></div>';
-            popup_content +=            '<ul>';
-            popup_content +=                '<li><a href="http://www.oink.com/how-it-works" title="What is Oink?" target="_blank">What is Oink?</a></li>';
-            popup_content +=                '<li><a href="https://live.virtualpiggy.com/Logon/ForgotPassword" title="I forgot my username and/or password." target="_blank">I forgot my username and/or password.</a></li>';
-            popup_content +=            '</ul>';
+            popup_content +=            '<div class="what-is-VP bold">What is Oink?</div>';
+            popup_content +=            '<div class="what-is-VP-message dark-grey">Oink is the safe way for kids and teens to save, shop, and give online. <a class="blue" href="http://oink.com/">Learn more</a></div>';
             popup_content +=    '</div>';
 
             this.$contentBox.append(popup_content);
-
             $("#vp-username").focus();
         },
         getButtonContainer:function () {
@@ -267,14 +286,6 @@ window.VPCart = ( function($) {
 
             return $contentBox.find('.vp-button-container');
         },
-        addLauncherButton:function () {
-            var $button = $('<img/>')
-                .attr('src', this.BUTTON_URL)
-                .addClass('virtualpiggy-button');
-
-            this.$form.prepend($button);
-        },
-
         createLabel:function ($field, label) {
             var $container, $label;
 
@@ -290,13 +301,11 @@ window.VPCart = ( function($) {
         },
         showContentBox:function () {
             var contentBox = this.getContentBox();
-
             this.center(contentBox);
-
-            contentBox.show();
+            contentBox.show(300);
         },
         hideContentBox:function () {
-            this.getContentBox().hide();
+            this.getContentBox().hide(200);
         },
         showLoading:function () {
             $("#vp-loader").css("display","block");
@@ -309,13 +318,8 @@ window.VPCart = ( function($) {
                 $('<button/>').addClass('virtualpiggy-button-cancel').html('Cancel')
             )
         },
-        addPlaceOrderButton:function () {
-            this.addButton(
-                $('<button/>').addClass('virtualpiggy-button-place-order').html('Place Order')
-            )
-        },
-        createPaymentOption:function (value, img) {
-            var $container, $field, $label, id;
+        createPaymentOption:function (value, name) {
+            var $container, $field, id;
 
             id = VPCart.id('payment-');
 
@@ -325,42 +329,38 @@ window.VPCart = ( function($) {
                 .attr('type', 'radio')
                 .attr('value', value)
                 .attr('id', id)
-                .attr('name', '_vp_payment_option');
-
-            $label = $('<img/>')
-                .attr('src', img);
+                .attr('class','virtualpiggy-radio-select')
+                .attr('name', '_vp_payment_option')
+                .append(name);
 
             $container
                 .append($field)
-                .append($label)
                 .append('<div class="clearfix"></div>');
 
             return $container;
-
         },
         center:function ($el) {
-            if (!$el || !$el.css) return;
-            $el.css("position", "absolute");
-            $el.css("top", Math.max(0, (($(window).height() - $el.outerHeight()) / 2) +
-                $(window).scrollTop() - $(window).height()/4) + "px");
-            $el.css("left", Math.max(0, (($(window).width() - $el.outerWidth()) / 2) +
-                $(window).scrollLeft()) + "px");
+            $el.css("position", "fixed");
+            $el.css('top', ($(window).height()- $($el).height())/4 + 'px');
+            $el.css('left', ($(window).width()-$($el).width())/2 + 'px');
         },
         centerContentBox:function () {
             this.center(this.getContentBox);
         },
         showChildSelector:function (childs) {
+            var contentBoxHidden = false;
+            var contentBox = this.getContentBox();
             this.cleanBox();
-
-            $(".virtualpiggy-loginbox").css("height","260px");
-            $(".virtualpiggy-loginbox").css("width","459px");
-            $(".virtualpiggy-loginbox").css("margin","105px");
-            $(".virtualpiggy-loginbox").css("padding","0px");
+            $(".virtualpiggy-loginbox").animate({height: "250px", width: "500px"}, 500);
 
             var $fields = $('<div/>')
                 .addClass('virtualpiggy-form')
-                .addClass('virtualpiggy-form-child');
+                .addClass('virtualpiggy-form-child')
+                .append("<img id='OinkLogo' src='https://cdn.virtualpiggy.com/public/images/checkout-logo-192x75.png'/>");
 
+            var popup_content = '<div id="vp-close"></div>';
+
+            contentBox.append(popup_content);
             var $select = $('<select/>')
                 .attr('id', 'vp-select-child');
 
@@ -371,41 +371,52 @@ window.VPCart = ( function($) {
             var $next = $('<button/>')
                 .html('Next')
                 .addClass('vp-select-child-button');
-
             this.addButton($next);
             this.addCancelButton();
 
-            $fields.append(this.createLabel($select, 'This transaction is for'));
 
-            this.getContentBox().append($fields);
+
+            $fields.append(this.createLabel($select, 'This purchase is for '));
+
+            this.getContentBox().append($fields)
+                .append('<p id="virtual-piggy-errors-container"></p>');
+            if(contentBoxHidden) {
+                contentBox.show();
+            }
         },
         showPaymentSelector:function (payments) {
-            var $fields, $radios, self;
+            var $fields, $select;
 
             this.cleanBox();
-            self = this;
 
             $fields = $('<div/>')
                 .addClass('virtualpiggy-form')
-                .addClass('virtualpiggy-form-payment');
+                .addClass('virtualpiggy-form-payment')
+                .append("<img id='OinkLogo' src='https://cdn.virtualpiggy.com/public/images/checkout-logo-192x75.png'/>");
 
-            $radios = $('<div/>')
+            $select = $('<select/>')
                 .attr('id', 'vp-select-payment');
 
             $.each(payments, function (key, value) {
-                $radios.append(self.createPaymentOption(key, value))
+                if (value == null) {
+                    $select.append('<p id="errorMessage"><strong>You do not have any payment accounts</strong></p>');
+                    return false;
+                }
+                else
+                    $select.append($('<option/>').html(value).attr('value', value));
             });
 
             var $next = $('<button/>')
                 .html('Next')
                 .addClass('vp-select-payment-button');
-
             this.addButton($next);
             this.addCancelButton();
 
-            $fields.append(this.createLabel($radios, 'Select the payment method'));
 
-            this.getContentBox().append($fields);
+            $fields.append(this.createLabel($select, 'Payment method'));
+
+            this.getContentBox().append($fields)
+                .append('<p id="virtual-piggy-errors-container"></p>');
         },
         cleanBox:function () {
             this.getContentBox().children(':not(img)').remove();
@@ -440,9 +451,6 @@ window.VPCart = ( function($) {
                 $('.payment_methods').hide();
             }
         },
-        hideLauncherButton:function () {
-            $('img.virtualpiggy-button').hide();
-        },
         showShippingAddress:function (data) {
             var address = '';
 
@@ -466,8 +474,6 @@ window.VPCart = ( function($) {
                     .before($('<h3/>').html('Shipping Address'))
                     .before($('<p/>').html(address));
             }
-
-            this.hideLauncherButton();
             this.selectVirtualPiggyPaymentMethod();
             this.centerContentBox();
         },
@@ -476,8 +482,8 @@ window.VPCart = ( function($) {
         },
         getWooCommerceFilledForm:function (data) {
             return {
-                '#billing_first_name':data.ParentName || VPCart.data.name,
-                '#billing_last_name':data.ParentLastName || '-',
+                '#billing_first_name':data.Name || VPCheckout.data.name,
+                '#billing_last_name':data.LastName || '-',
                 '#billing_address_1':data.Address,
                 '#billing_city':data.City,
                 '#billing_postcode':data.Zip,
@@ -489,9 +495,9 @@ window.VPCart = ( function($) {
         },
         getShoppFilledForm:function (data) {
             return {
-                '#firstname':data.ParentName || VPCart.data.name,
-                '#lastname':data.ParentLastName || '-',
-                '#billing-name':data.ParentName + ' ' + data.ParentLastName,
+                '#firstname':data.Name || VPCart.data.name,
+                '#lastname':data.LastName || '-',
+                '#billing-name':data.ParentName,
                 '#billing-address':data.Address,
                 '#billing-city':data.City,
                 '#billing-postcode':data.Zip,
@@ -502,13 +508,12 @@ window.VPCart = ( function($) {
             };
         },
         getFilledForm:function (data) {
-            var parent;
+            var customer;
+            if(!data.Name) {
+                customer = (data.Name || '').split(/\s/);
 
-            if(!data.ParentLastName) {
-                parent = (data.ParentName || '').split(/\s/);
-
-                data.ParentName = parent.shift();
-                data.ParentLastName = parent.join(' ');
+                data.Name = customer.shift();
+                data.LastName = customer.join(' ');
             }
 
             if (this.isShopp()) {
@@ -528,6 +533,16 @@ window.VPCart = ( function($) {
                 $("#billing_country").trigger("liszt:updated");
             } catch (e) {
             }
+        },
+        resetForm:function() {
+            var data='';
+            var dict = this.getFilledForm(data);
+            $.each(dict, function (key, value) {
+                $(key).val('');
+            });
+            $('#payment_method_virtual-piggy').attr('checked', false);
+            VPCheckout.view.showPaymentOptions();
+            VPCheckout.view.showShippingForm();
         },
         selectVirtualPiggyPaymentMethod:function () {
             $('#payment_method_virtual-piggy').attr('checked', true);
