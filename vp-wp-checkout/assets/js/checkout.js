@@ -28,18 +28,15 @@ window.VPCheckout = (function ($) {
 
             var self = this;
 
-            self.isLogged(function (isLogged, data) {
+            self.isLogged(function (isLogged, info) {
                 if (!isLogged) {
-                    self.doLogout(function () {
-                        self.view.init();
-                        self.initEvents();
-                        self.view.showLoginBox();
-                    });
+                    self.view.init();
+                    self.initEvents();
+                    self.view.showLoginBox();
                 }  else {
                     self.view.init();
-                    var form_data = self.view.$form.data();
                     self.initEvents();
-                    self.afterLogin(isLogged, '', data);
+                    self.afterLogin(isLogged, '', info);
                 }
             });
 
@@ -259,6 +256,7 @@ window.VPCheckout = (function ($) {
             if(typeof this.data.role === "undefined") {
                 this.data = data;
             }
+            $('#payment_method_virtual-piggy').attr('checked', 'checked');
             this.view.hideShippingForm();
             this.view.hidePaymentOptions();
             this.view.hideLauncherButton();
@@ -425,7 +423,8 @@ window.VPCheckout = (function ($) {
             var contentBoxHidden = false;
             var contentBox = this.getContentBox();
             this.cleanBox();
-            $(".virtualpiggy-loginbox").animate({height: "250px", width: "500px"}, 500);
+            this.showContentBox()
+            $(".virtualpiggy-loginbox").animate({height: "300px", width: "614px"}, 500);
 
             var $fields = $('<div/>')
                 .addClass('virtualpiggy-form')

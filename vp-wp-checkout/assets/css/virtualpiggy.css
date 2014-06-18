@@ -11,6 +11,7 @@ img.virtualpiggy-button {
 
 img#OinkLogo {
     background: #fff;
+    margin-bottom:40px;
 }
 .virtualpiggy-loginbox {
     background-color: #fff;
@@ -76,7 +77,7 @@ img#OinkLogo {
 .virtualpiggy-loginbox img {
     border-radius: 7px 7px 7px 7px !important;
     display: block;
-    margin: 10px auto 0 !important;
+    margin: 10px auto 0;
     padding: 4px !important;
 }
 
@@ -110,7 +111,6 @@ div .vp-button-container {
     position: absolute;
     text-align: center;
     width: 100%;
-    border-top: 1px solid #cccccc;
     padding-top: 30px;
     height: 30px;
 }
