@@ -1,5 +1,5 @@
 body {
-    font-family: Helvetica,'Open Sans Condensed',sans-serif;
+    font-family: Helvetica, 'Open Sans Condensed', sans-serif;
 }
 
 img.virtualpiggy-button {
@@ -11,7 +11,9 @@ img.virtualpiggy-button {
 
 img#OinkLogo {
     background: #fff;
+    margin-bottom: 40px;
 }
+
 .virtualpiggy-loginbox {
     background-color: #fff;
     padding: 40px;
@@ -19,7 +21,7 @@ img#OinkLogo {
     height: auto;
     position: fixed;
     z-index: 10001;
-    outline: 9999px solid rgba(0,0,0,.6);
+    outline: 9999px solid rgba(0, 0, 0, .6);
     border-radius: 5px 5px 5px 5px;
 }
 
@@ -38,19 +40,19 @@ img#OinkLogo {
 .virtualpiggy-field-row input,
 .virtualpiggy-field-row select {
     display: inline-block;
-    float:none;
+    float: none;
     width: 300px;
-    margin-bottom:0;
-    margin-left:0;
+    margin-bottom: 0;
+    margin-left: 0;
     color: #424242;
     vertical-align: middle;
-    height:25px;
+    height: 25px;
     background-color: #FFFFFF;
     border: 1px solid #CCCCCC;
     cursor: pointer;
     border-radius: 4px !important;
     font-size: 14px;
-    font-family: Helvetica,'Open Sans Condensed',sans-serif;
+    font-family: Helvetica, 'Open Sans Condensed', sans-serif;
 }
 
 .virtualpiggy-field-row label {
@@ -61,7 +63,7 @@ img#OinkLogo {
     display: block;
     margin-bottom: 10px;
     font-size: 16px;
-    font-family: Helvetica,'Open Sans Condensed',sans-serif;
+    font-family: Helvetica, 'Open Sans Condensed', sans-serif;
 }
 
 .virtualpiggy-field-row .clearfix {
@@ -76,7 +78,7 @@ img#OinkLogo {
 .virtualpiggy-loginbox img {
     border-radius: 7px 7px 7px 7px !important;
     display: block;
-    margin: 10px auto 0 !important;
+    margin: 10px auto 0;
     padding: 4px !important;
 }
 
@@ -84,24 +86,15 @@ img#OinkLogo {
     margin: 50px auto !important;
 }
 
-div.virtualpiggy-payment-row img {
-    float: left;
-    display:inline-block;
-    background-color: #BBCCDD;
-    border-radius: 7px !important;
-    margin: 0px;
-    padding: 4px;
-}
-
 div.virtualpiggy-payment-row input {
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    color:#ff0800;
-    font-size:12px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #ff0800;
+    font-size: 12px;
 }
 
-.virtualpiggy-radio-select input{
-    height:2px;
-    width:2px;
+.virtualpiggy-radio-select input {
+    height: 2px;
+    width: 2px;
 }
 
 div .vp-button-container {
@@ -110,15 +103,15 @@ div .vp-button-container {
     position: absolute;
     text-align: center;
     width: 100%;
-    border-top: 1px solid #cccccc;
     padding-top: 30px;
     height: 30px;
 }
+
 .virtualpiggy-button-cancel {
     float: right;
     font-size: 14px;
-    margin-left:5px;
-    margin-right:5px;
+    margin-left: 5px;
+    margin-right: 5px;
     width: 88px;
     height: 28px;
     border-radius: 4px;
@@ -128,11 +121,11 @@ div .vp-button-container {
     border: 1px solid #bebebe;
     background-color: #c5c4c4;
     background: -moz-linear-gradient(top, #c5c4c4 0%, #adacac 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#c5c4c4), color-stop(100%,#adacac));
-    background: -webkit-linear-gradient(top, #c5c4c4 0%,#adacac 100%);
-    background: -o-linear-gradient(top, #c5c4c4 0%,#adacac 100%);
-    background: -ms-linear-gradient(top, #c5c4c4 0%,#adacac 100%);
-    background: linear-gradient(to bottom, #c5c4c4 0%,#adacac 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #c5c4c4), color-stop(100%, #adacac));
+    background: -webkit-linear-gradient(top, #c5c4c4 0%, #adacac 100%);
+    background: -o-linear-gradient(top, #c5c4c4 0%, #adacac 100%);
+    background: -ms-linear-gradient(top, #c5c4c4 0%, #adacac 100%);
+    background: linear-gradient(to bottom, #c5c4c4 0%, #adacac 100%);
 }
 
 .virtualpiggy-button-cancel:hover {
@@ -143,24 +136,25 @@ div .vp-button-container {
 .vp-select-child-button {
     font-size: 14px;
     float: right;
-    margin-left:5px;
-    margin-right:10px;
+    margin-left: 5px;
+    margin-right: 10px;
     width: 88px;
     height: 28px;
     border: 1px solid #EE7A27;
     background-color: #F57D28;
     background: -moz-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#F68B3E), color-stop(100%,#EE7A27));
-    background: -webkit-linear-gradient(top, #F68B3E 0%,#EE7A27 100%);
-    background: -o-linear-gradient(top, #F68B3E 0%,#EE7A27 100%);
-    background: -ms-linear-gradient(top, #F68B3E 0%,#EE7A27 100%);
-    background: linear-gradient(to bottom, #F68B3E 0%,#EE7A27 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #F68B3E), color-stop(100%, #EE7A27));
+    background: -webkit-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
+    background: -o-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
+    background: -ms-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
+    background: linear-gradient(to bottom, #F68B3E 0%, #EE7A27 100%);
     border-radius: 4px;
     color: #ffffff;
     text-align: center;
     cursor: pointer;
 }
-.vp-select-child-button:hover, .vp-select-child-button:focus {
+
+.vp-select-child-button:hover {
     text-decoration: none;
     background: #F57D28;
     color: #ffffff;
@@ -169,67 +163,99 @@ div .vp-button-container {
 .vp-select-payment-button {
     font-size: 14px;
     float: right;
-    margin-left:5px;
-    margin-right:10px;
+    margin-left: 5px;
+    margin-right: 10px;
     width: 88px;
     height: 28px;
     border: 1px solid #EE7A27;
     background-color: #F57D28;
     background: -moz-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#F68B3E), color-stop(100%,#EE7A27));
-    background: -webkit-linear-gradient(top, #F68B3E 0%,#EE7A27 100%);
-    background: -o-linear-gradient(top, #F68B3E 0%,#EE7A27 100%);
-    background: -ms-linear-gradient(top, #F68B3E 0%,#EE7A27 100%);
-    background: linear-gradient(to bottom, #F68B3E 0%,#EE7A27 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #F68B3E), color-stop(100%, #EE7A27));
+    background: -webkit-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
+    background: -o-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
+    background: -ms-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
+    background: linear-gradient(to bottom, #F68B3E 0%, #EE7A27 100%);
     border-radius: 4px;
     color: #ffffff;
     text-align: center;
     cursor: pointer;
 }
 
-.vp-select-payment-button:hover, .vp-select-payment-button-button:focus {
+.vp-select-payment-button:hover {
     text-decoration: none;
     background: #F57D28;
     color: #ffffff;
 }
 
-.virtualpiggy-checkout-index .grid_6 {margin:30px 0px 0px 0px; width:930px;}
-.virtualpiggy-checkout-index .grid_6 #checkout-review-load #checkout-review-table-wrapper {margin:0px 0px 30px 0px;}
-.virtualpiggy-checkout-index .grid_6 #checkout-review-load #checkout-review-table-wrapper #checkout-review-table {margin:0px;}
-.virtualpiggy-checkout-index .grid_6 #checkout-review-load #checkout-review-submit #review-buttons-container button {background:url('../img/order.png') 0px 0px no-repeat; border:none; border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px; float:right; height:33px; padding:0px; transition:none; -moz-transition:none; -ms-transition:none; -o-transition:none; -webkit-transition:none; text-indent:-9999px; width:112px;}
+#virtual-piggy-login {
+    background: #fff url('https://cdn.virtualpiggy.com/public/images/checkout-logo-192x75.png') center top no-repeat;
+    height: auto;
+    margin: 0 auto;
+    padding: 70px 0px 0px 0px;
+    overflow: hidden;
+    width: auto;
+}
 
-#virtual-piggy-pay a#virtual-piggy-checkout-button {background:url('../img/pay-with-vp.png') no-repeat; display:block; height:53px; margin:0 auto; width:150px;}
+#virtual-piggy-login #vp-close {
+    background: url('../images/virtualpiggy/checkout/vp-close.png') no-repeat;
+    cursor: pointer;
+    height: 17px;
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    width: 17px;
+}
 
-#virtual-piggy-login {background:#fff url('https://cdn.virtualpiggy.com/public/images/checkout-logo-192x75.png') center top no-repeat; height:auto; margin:0 auto; padding:70px 0px 0px 0px; overflow:hidden; width:auto;}
+#virtual-piggy-login p {
+    color: #f16312;
+    font-size: 17px;
+    font-weight: bold;
+    padding: 0px 100px;
+    text-align: center;
+}
 
-#virtual-piggy-login #vp-close {background:url('../images/virtualpiggy/checkout/vp-close.png') no-repeat; cursor:pointer; height:17px; position:absolute; right:30px; top:30px; width:17px;}
-#virtual-piggy-login p {color:#f16312; font-size:17px; font-weight:bold; padding:0px 100px; text-align:center;}
-#virtual-piggy-login .input-box {margin:0 auto; text-align:center;}
-#virtual-piggy-login input {border:1px solid #c0c0bf; border-radius:5px; color:#5c6263; font-size:16px; padding:5px; width:390px;}
-#virtual-piggy-login input:first-child {margin:0px 0px 13px 0px;}
+#virtual-piggy-login .input-box {
+    margin: 0 auto;
+    text-align: center;
+}
+
+#virtual-piggy-login input {
+    border: 1px solid #c0c0bf;
+    border-radius: 5px;
+    color: #5c6263;
+    font-size: 16px;
+    padding: 5px;
+    width: 390px;
+}
+
+#virtual-piggy-login input:first-child {
+    margin: 0px 0px 13px 0px;
+}
+
+p#errorMessage,
+#virtual-piggy-login p#virtual-piggy-errors-container {
+    display: block;
+    margin: 0px 0px 5px 5px;
+    font-size: 12px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #ff0800
+}
 
 #virtual-piggy-login p#virtual-piggy-errors-container {
-    display:block;
-    position:relative;
+    position: relative;
     top: -20px;
-    font-size:12px;
     margin: 5px;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    color:#ff0800
 }
-p#errorMessage{
-    display:block;
-    margin:0px 0px 5px 5px;
-    font-size:12px;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    color:#ff0800
+
+#virtual-piggy-login #advice-required-entry-virtual-piggy-login-password, #virtual-piggy-login #advice-required-entry-virtual-piggy-login-userid {
+    display: none;
 }
-#virtual-piggy-login #advice-required-entry-virtual-piggy-login-password, #virtual-piggy-login #advice-required-entry-virtual-piggy-login-userid {display:none;}
+
 #virtual-piggy-login .buttons-set .login-form-button {
     font-size: 14px;
     float: right;
-    margin-left:5px;
-    margin-right:5px;
+    margin-left: 5px;
+    margin-right: 5px;
     width: 88px;
     height: 28px;
     border-radius: 4px;
@@ -239,37 +265,43 @@ p#errorMessage{
     border: 1px solid #EE7A27;
     background-color: #F57D28;
     background: -moz-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#F68B3E), color-stop(100%,#EE7A27));
-    background: -webkit-linear-gradient(top, #F68B3E 0%,#EE7A27 100%);
-    background: -o-linear-gradient(top, #F68B3E 0%,#EE7A27 100%);
-    background: -ms-linear-gradient(top, #F68B3E 0%,#EE7A27 100%);
-    background: linear-gradient(to bottom, #F68B3E 0%,#EE7A27 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #F68B3E), color-stop(100%, #EE7A27));
+    background: -webkit-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
+    background: -o-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
+    background: -ms-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
+    background: linear-gradient(to bottom, #F68B3E 0%, #EE7A27 100%);
 }
+
 #virtual-piggy-login .buttons-set .login-form-button:hover {
     text-decoration: none;
     background: #F57D28;
     color: #ffffff;
 }
-fieldset{
-    margin-bottom:5px;
+
+fieldset {
+    margin-bottom: 5px;
 }
+
 .what-is-VP {
-    display:block;
+    display: block;
     font-size: 19px;
-    margin-top:30px;
+    margin-top: 30px;
     padding-bottom: 20px;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #333;
     background-color: #fff;
 }
+
 .what-is-VP-message {
-    margin:0px;
-    font-family: Helvetica,'Open Sans Condensed',sans-serif;
+    margin: 0px;
+    font-family: Helvetica, 'Open Sans Condensed', sans-serif;
     padding-bottom: 35px;
 }
+
 .dark-grey, a.dark-grey:hover {
     color: #555555;
 }
+
 .blue, a.blue:hover {
     color: #23abd0;
 }
@@ -277,8 +309,8 @@ fieldset{
 #virtual-piggy-login .buttons-set .signup-form-button {
     font-size: 14px;
     float: right;
-    margin-left:5px;
-    margin-right:5px;
+    margin-left: 5px;
+    margin-right: 5px;
     width: 88px;
     height: 28px;
     border-radius: 4px;
@@ -291,33 +323,75 @@ fieldset{
     border: 1px solid #03A2A7;
     background-color: #0AA5A8;
     background: -moz-linear-gradient(top, #39C4CB 0%, #03A2A7 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#39C4CB), color-stop(100%,#03A2A7));
-    background: -webkit-linear-gradient(top, #39C4CB 0%,#03A2A7 100%);
-    background: -o-linear-gradient(top, #39C4CB 0%,#03A2A7 100%);
-    background: -ms-linear-gradient(top, #39C4CB 0%,#03A2A7 100%);
-    background: linear-gradient(to bottom, #39C4CB 0%,#03A2A7 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #39C4CB), color-stop(100%, #03A2A7));
+    background: -webkit-linear-gradient(top, #39C4CB 0%, #03A2A7 100%);
+    background: -o-linear-gradient(top, #39C4CB 0%, #03A2A7 100%);
+    background: -ms-linear-gradient(top, #39C4CB 0%, #03A2A7 100%);
+    background: linear-gradient(to bottom, #39C4CB 0%, #03A2A7 100%);
 }
+
 #virtual-piggy-login .buttons-set .signup-form-button:hover {
-    text-decoration:none;
-    background:#0AA5A8;
-    color:#ffffff;
+    text-decoration: none;
+    background: #0AA5A8;
+    color: #ffffff;
 }
 
-#virtual-piggy-login #vp-loader {background:url('../images/virtualpiggy/checkout/loader.gif') no-repeat; height:31px; margin:0px auto; width:31px;}
+#virtual-piggy-login #vp-loader {
+    background: url('../images/virtualpiggy/checkout/loader.gif') no-repeat;
+    height: 31px;
+    margin: 0px auto;
+    width: 31px;
+}
 
-#virtual-piggy-login ul {margin:30px 0px 0px 0px; text-align:center;padding-left:0;}
-#virtual-piggy-login ul li {font-size:16px; line-height:20px; font-weight:bold; list-style:none; padding-left:0;}
-#virtual-piggy-login ul li a {color:#1e6fc4; text-decoration:underline;}
+#virtual-piggy-login ul {
+    margin: 30px 0px 0px 0px;
+    text-align: center;
+    padding-left: 0;
+}
 
-.checkout-cart-index #cboxContent {border:none; padding:40px;}
-.checkout-cart-index #cboxClose {display:none; opacity:0;}
+#virtual-piggy-login ul li {
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: bold;
+    list-style: none;
+    padding-left: 0;
+}
 
-.virtualpiggy-checkout-parentconfirmation h1 {color:#1e6fca; font-size:35px; font-weight:bold; line-height:35px; margin:0px; padding:0px;}
-.virtualpiggy-checkout-parentconfirmation .grid_6 {margin:30px 0px 0px 0px; width:930px;}
+#virtual-piggy-login ul li a {
+    color: #1e6fc4;
+    text-decoration: underline;
+}
 
-.virtualpiggy-checkout-parentconfirmation .opc {margin:30px 0px 30px 0px;}
-.virtualpiggy-checkout-parentconfirmation .opc li .step {font-family:Arial, Helvetica, sans-serif;}
-.virtualpiggy-checkout-parentconfirmation .opc li .step .form-list li {display:inline-block;}
+.checkout-cart-index #cboxContent {
+    border: none;
+    padding: 40px;
+}
+
+.checkout-cart-index #cboxClose {
+    display: none;
+    opacity: 0;
+}
+
+.virtualpiggy-checkout-parentconfirmation h1 {
+    color: #1e6fca;
+    font-size: 35px;
+    font-weight: bold;
+    line-height: 35px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.virtualpiggy-checkout-parentconfirmation .opc {
+    margin: 30px 0px 30px 0px;
+}
+
+.virtualpiggy-checkout-parentconfirmation .opc li .step {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.virtualpiggy-checkout-parentconfirmation .opc li .step .form-list li {
+    display: inline-block;
+}
 
 button.oink_button {
     background-color: #FFAC47;
@@ -326,7 +400,7 @@ button.oink_button {
     border-width: 1px;
     color: #FFFFFF;
     cursor: pointer;
-    font: bold 12px arial,helvetica,sans-serif;
+    font: bold 12px arial, helvetica, sans-serif;
     padding: 0 7px 1px;
     text-align: center !important;
     white-space: nowrap;
@@ -337,7 +411,8 @@ button.oink_failure {
     border-color: #D24403 #A92000 #A92000 #D24403;
     color: #FFFFFF;
 }
+
 button.oink_success {
-    background-color:#5B9657;
+    background-color: #5B9657;
     border-color: #46745E;
 }
