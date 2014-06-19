@@ -261,7 +261,7 @@ window.VPCart = (function ($) {
             popup_content +=            '<div class="col-2">';
             popup_content +=                '<div class="buttons-set" id="buttons-set">';
             popup_content +=                    '<button class="login-form-button virtualpiggy-button-login" type="button">Continue</button>';
-            popup_content +=                    '<button href="https://www.oink.com" title="Sign Up" class="signup-form-button">Sign Up</button>';
+            popup_content +=                    '<button title="Sign Up" class="signup-form-button"><a target="_blank" href="https://www.oink.com">Sign Up</a></button>';
             popup_content +=                '</div>';
             popup_content +=            '</div>';
             popup_content +=            '<div id="vp-loader" style="display:none"></div>';

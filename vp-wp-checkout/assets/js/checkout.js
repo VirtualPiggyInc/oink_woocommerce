@@ -131,27 +131,31 @@ window.VPCheckout = (function ($) {
                 }
             });
         },
-        doLogin: function () {
+        doLogin:function () {
             var user, pass;
-            if (!window.VPCheckout)
+
+            if (!window.VPCheckout) {
                 window.VPCheckout.init();
+            }
 
             user = $('#vp-username').val();
             pass = $('#vp-password').val();
 
-            if (!user || !pass)
+            if (!user || !pass) {
                 return;
-
+            }
             this.view.showLoading();
+            var self = this;
             $.ajax({
-                url: '?vp_action=login',
-                data: {
-                    username: user,
-                    password: pass
+                url:'?vp_action=login',
+                data:{
+                    username:user,
+                    password:pass
                 },
-                complete: function (xhr) {
+                complete:function (xhr) {
                     var json = $.parseJSON(xhr.responseText);
-                    this.afterLogin(json.success, json.message, json.data);
+
+                    self.afterLogin(json.success, json.message, json.data);
                 }
             });
         },
@@ -302,7 +306,7 @@ window.VPCheckout = (function ($) {
             popup_content +=            '<div class="col-2">';
             popup_content +=                '<div class="buttons-set" id="buttons-set">';
             popup_content +=                    '<button class="login-form-button virtualpiggy-button-login" type="button">Continue</button>';
-            popup_content +=                    '<button href="https://www.oink.com" title="Sign Up" class="signup-form-button">Sign Up</button>';
+            popup_content +=                    '<button title="Sign Up" class="signup-form-button"><a target="_blank" href="https://www.oink.com">Sign Up</a></button>';
             popup_content +=                '</div>';
             popup_content +=            '</div>';
             popup_content +=            '<div id="vp-loader" style="display:none"></div>';
@@ -398,7 +402,7 @@ window.VPCheckout = (function ($) {
             }
         },
         showPaymentSelector: function (payments) {
-            var $fields, $select;
+            var $fields, $select, error;
             this.cleanBox();
             $fields = $('<div/>')
                 .addClass('virtualpiggy-form')
@@ -409,6 +413,7 @@ window.VPCheckout = (function ($) {
             $.each(payments, function (key, value) {
                 if (value == null) {
                     $select = '<p id="errorMessage"><strong>You do not have any payment accounts</strong></p>';
+                    error = true;
                     return false;
                 }
                 else
@@ -417,12 +422,16 @@ window.VPCheckout = (function ($) {
             var $next = $('<button/>')
                 .html('Next')
                 .addClass('vp-select-payment-button');
-            this.addButton($next);
             this.addCancelButton();
 
-            $fields.append(this.createLabel($select, 'Payment method'));
-            this.getContentBox().append($fields)
-                .append('<p id="virtual-piggy-errors-container"></p>');
+            if (error) {
+                $fields.append($select);
+            }
+            else {
+                $fields.append(this.createLabel($select, 'Payment method'));
+                this.addButton($next);
+            }
+            this.getContentBox().append($fields);
         },
         cleanBox: function () {
             this.getContentBox().children(':not(img)').remove();
