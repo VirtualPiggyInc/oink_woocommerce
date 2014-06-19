@@ -29,12 +29,21 @@ window.VPCheckout = (function ($) {
 
             self.isLogged(function (isLogged, info) {
                 if (!isLogged) {
+<<<<<<< HEAD
                     self.view.init();
                     self.initEvents();
                     self.view.showLoginBox();
                 } else {
                     self.view.init();
                     self.initEvents();
+=======
+                    self.view.init();
+                    self.initEvents();
+                    self.view.showLoginBox();
+                }  else {
+                    self.view.init();
+                    self.initEvents();
+>>>>>>> origin/woocomm-and-shopp-fixes
                     self.afterLogin(isLogged, '', info);
                 }
             });
@@ -236,6 +245,10 @@ window.VPCheckout = (function ($) {
             }
             if (typeof this.data.role === "undefined")
                 this.data = data;
+<<<<<<< HEAD
+=======
+            }
+>>>>>>> origin/woocomm-and-shopp-fixes
             $('#payment_method_virtual-piggy').attr('checked', 'checked');
             this.view.hideShippingForm();
             this.view.hidePaymentOptions();
@@ -374,6 +387,10 @@ window.VPCheckout = (function ($) {
             this.cleanBox();
             this.showContentBox()
             $(".virtualpiggy-loginbox").animate({height: "300px", width: "614px"}, 500);
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/woocomm-and-shopp-fixes
             var $fields = $('<div/>')
                 .addClass('virtualpiggy-form')
                 .addClass('virtualpiggy-form-child')
