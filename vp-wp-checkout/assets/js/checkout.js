@@ -422,8 +422,6 @@ window.VPCheckout = (function ($) {
             var $next = $('<button/>')
                 .html('Next')
                 .addClass('vp-select-payment-button');
-            this.addCancelButton();
-
             if (error) {
                 $fields.append($select);
             }
@@ -431,6 +429,7 @@ window.VPCheckout = (function ($) {
                 $fields.append(this.createLabel($select, 'Payment method'));
                 this.addButton($next);
             }
+            this.addCancelButton();
             this.getContentBox().append($fields);
         },
         cleanBox: function () {
