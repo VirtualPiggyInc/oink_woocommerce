@@ -307,6 +307,7 @@ fieldset {
 }
 
 #virtual-piggy-login .buttons-set .signup-form-button {
+    text-decoration: none;
     font-size: 14px;
     float: right;
     margin-left: 5px;
@@ -329,7 +330,10 @@ fieldset {
     background: -ms-linear-gradient(top, #39C4CB 0%, #03A2A7 100%);
     background: linear-gradient(to bottom, #39C4CB 0%, #03A2A7 100%);
 }
-
+#virtual-piggy-login .buttons-set .signup-form-button a{
+    text-decoration:none;
+    color: #ffffff;
+}
 #virtual-piggy-login .buttons-set .signup-form-button:hover {
     text-decoration: none;
     background: #0AA5A8;
