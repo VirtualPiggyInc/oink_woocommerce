@@ -145,21 +145,6 @@ window.VPCart = (function ($) {
                 }
             });
         },
-        doChildSelection: function () {
-            this.data.selectedChild = $('#vp-select-child').val();
-
-            this.view.showPaymentSelector(this.data.payment);
-        },
-        doPaymentSelection: function () {
-            this.data.selectedPayment = $('#vp-select-payment').val();
-
-            if (!this.data.selectedPayment) {
-                return this.errorMessage('vp-select-payment', 'Select a payment method');
-            }
-
-            this.view.showLoading();
-            this.routeToCheckout();
-        },
         routeToCheckout: function () {
             //set logged in with session, so on next page, will show correct state
             $('input.checkout-button').trigger('click');
@@ -189,7 +174,7 @@ window.VPCart = (function ($) {
         afterLogin: function (success, message, data) {
             this.clearErrors('#virtual-piggy-errors-container');
             if (!success) {
-                this.errorMessage('virtual-piggy-errors-container', message);
+                this.errorMessage('#virtual-piggy-errors-container', message);
                 this.hideLoading();
                 this.doLogout()
                 return;
