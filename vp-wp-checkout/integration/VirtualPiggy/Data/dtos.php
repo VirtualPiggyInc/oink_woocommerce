@@ -463,7 +463,7 @@ class dtoCartItem
         $doc->appendChild($item);
 
         $doc->formatOutput = true;
-        return $doc->saveXML($Total);
+        return $doc->saveXML($total);
     }
     
     public function toEscapedXml()
@@ -521,8 +521,6 @@ class dtoWishlistItem
      */    
     var $Description;
 
-    var $Total;
-
     public function ToXml()
     {
 
@@ -532,7 +530,7 @@ class dtoWishlistItem
         $doc->appendChild($item);
 
         $doc->formatOutput = true;
-        return $doc->saveXML($Total);
+        return $doc->saveXML($total);
     }
     
     public function toEscapedXml()

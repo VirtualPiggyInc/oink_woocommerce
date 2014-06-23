@@ -120,30 +120,22 @@ class vp_payment_wc {
     }
 
     private function _action_get_shipping_details() {
-        if ($this->vp->isParent())
-            $result = $this->vp->getShippingDetailsBySelectedChild();
-        else
-            $result = $this->vp->getCurrentChildShippingDetails();
+        if ($this->getVP()->isParent()) {
+            $childName = $_REQUEST['child'];
+            $result = $this->getVP()->getShippingDetailsByChildName($childName);
+        } else {
+            $result = $this->getVP()->getCurrentChildShippingDetails();
+        }
 
-        $data = array(
+        $this->sendJSON(true, '', array(
             'Address' => $result->Address,
             'City' => $result->City,
             'State' => $result->State,
             'Zip' => $result->Zip,
             'Country' => $result->Country,
             'Phone' => $result->Phone,
-            'ParentEmail' => $result->ParentEmail,
-            'Name' => $result->ChildName,
-            'ParentName' => $result->ParentName,
-            'ErrorMessage' => $result->ErrorMessage
-        );
-        if (empty($data['ErrorMessage']))
-            $status = true;
-        else {
-            $status = false;
-            wc_add_notice($data['ErrorMessage'], 'error');
-        }
-        $this->sendJSON($status, $data['ErrorMessage'], $data);
+            'ParentEmail' => $result->ParentEmail
+        ));
     }
 
     private function sendJSON($status = true, $message = '', $data = array()) {

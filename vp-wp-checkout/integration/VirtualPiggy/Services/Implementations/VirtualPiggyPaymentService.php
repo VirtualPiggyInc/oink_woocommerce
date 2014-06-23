@@ -41,7 +41,7 @@ class VirtualPiggyPaymentService implements IPaymentService {
             $result_dto->Status = $result->AuthenticateChildResult->Status;
 
         } catch (Exception $e) {
-            $result_dto->ErrorMessage = $e->getMessage();
+            $result_dto->ErrorMessage = "AuthenticateChil-Exception occured: " . $e;
         }
         return $result_dto;
     }
@@ -67,9 +67,12 @@ class VirtualPiggyPaymentService implements IPaymentService {
             $result_dto->Status = $result->AuthenticateUserResult->Status;
             $result_dto->UserType = $result->AuthenticateUserResult->UserType;
         } catch (Exception $e) {
-            $result_dto->ErrorMessage = $e->getMessage();
+            $result_dto->ErrorMessage = "AuthenticateUser-Exception occured: " . $e;
         }
+
         return $result_dto;
+
+
     }
 
     public function GetChildProfile($token) {
@@ -86,7 +89,7 @@ class VirtualPiggyPaymentService implements IPaymentService {
             $profile->Gender = $result->GetChildGenderAgeResult->Gender;
             $profile->ErrorMessage = $result->GetChildGenderAgeResult->ErrorMessage;
         } catch (Exception $e) {
-            $profile->ErrorMessage = $e->getMessage();
+            $profile->ErrorMessage = "GetChildProfile-Exception occured: " . $e;
         }
         return $profile;
     }
@@ -118,7 +121,7 @@ class VirtualPiggyPaymentService implements IPaymentService {
             $result_dto->ParentName = $result->GetChildAddressResult->Name;
             $result_dto->ChildName = $result->GetChildAddressResult->AttentionOf;
         } catch (Exception $e) {
-            $result_dto->ErrorMessage = $e->getMessage();
+            $result_dto->ErrorMessage = "GetChildAddress-Exception occured: " . $e;
         }
         return $result_dto;
     }
@@ -149,7 +152,7 @@ class VirtualPiggyPaymentService implements IPaymentService {
             $result_dto->ParentEmail = $result->GetParentAddressResult->ParentEmail;
             $result_dto->ParentName = $result->GetParentAddressResult->Name;
         } catch (Exception $e) {
-            $result_dto->ErrorMessage = $e->getMessage();
+            $result_dto->ErrorMessage = "Exception occured: " . $e;
         }
         return $result_dto;
     }
@@ -180,9 +183,8 @@ class VirtualPiggyPaymentService implements IPaymentService {
             $result_dto->Phone = $result->GetParentChildAddressResult->ParentPhone;
             $result_dto->ParentEmail = $result->GetParentChildAddressResult->ParentEmail;
             $result_dto->ParentName = $result->GetParentChildAddressResult->Name;
-            $result_dto->ChildName = $result->GetParentChildAddressResult->AttentionOf;
         } catch (Exception $e) {
-            $result_dto->ErrorMessage = $e->getMessage();
+            $result_dto->ErrorMessage = "Exception occured: " . $e;
         }
         return $result_dto;
     }
@@ -215,7 +217,7 @@ class VirtualPiggyPaymentService implements IPaymentService {
                 $childrens[] = $children;
             }
         } catch (Exception $e) {
-            $result_dto->ErrorMessage = $e->getMessage();
+            $result_dto->ErrorMessage = "Exception occured: " . $e;
             return $result_dto;
         }
         return $childrens;
@@ -251,7 +253,7 @@ class VirtualPiggyPaymentService implements IPaymentService {
                 $paymentAccounts[] = $paymentAccount;
             }
         } catch (Exception $e) {
-            $result_dto->ErrorMessage = $e->getMessage();
+            $result_dto->ErrorMessage = "Exception occured: " . $e;
             return $result_dto;
         }
         return $paymentAccounts;
@@ -272,7 +274,7 @@ class VirtualPiggyPaymentService implements IPaymentService {
             /*
              * TODO: Need to create dtoTransactionDetails
              * Need to map to dto so integration developers will understand
-             * what data is coming out of service.
+             * what data is comming out of service. 
              */
             $return = $client->GetTransactionDetails($params);
         } catch (Exception $e) {
@@ -296,7 +298,7 @@ class VirtualPiggyPaymentService implements IPaymentService {
             );
             $return = $client->GetTransactions($params);
         } catch (Exception $e) {
-            echo $e->getMessage();
+            echo "Exception occured: " . $e;
         }
     }
 
@@ -322,7 +324,7 @@ class VirtualPiggyPaymentService implements IPaymentService {
             $result_dto->TransactionStatus = $result->ProcessTransactionResult->TransactionStatus;
             $result_dto->TransactionIdentifier = $result->ProcessTransactionResult->TransactionIdentifier;
         } catch (Exception $e) {
-            $result_dto->ErrorMessage = $e->getMessage();
+            $result_dto->ErrorMessage = "Exception occured: " . $e;
         }
         return $result_dto;
     }
@@ -350,7 +352,7 @@ class VirtualPiggyPaymentService implements IPaymentService {
             $result_dto->TransactionStatus = $result->ProcessParentTransactionResult->TransactionStatus;
             $result_dto->TransactionIdentifier = $result->ProcessParentTransactionResult->TransactionIdentifier;
         } catch (Exception $e) {
-            $result_dto->ErrorMessage = $e->getMessage();
+            $result_dto->ErrorMessage = "Exception occured: " . $e;
         }
         return $result_dto;
     }
@@ -365,7 +367,7 @@ class VirtualPiggyPaymentService implements IPaymentService {
             );
             $result = $client->SaveWishList($params);
         } catch (Exception $e) {
-            echo $e->getMessage();
+            echo "Exception occured: " . $e;
         }
         $status = new dtoWishlistStatus();
         $status->Children = $result->SaveWishListResult->Children;

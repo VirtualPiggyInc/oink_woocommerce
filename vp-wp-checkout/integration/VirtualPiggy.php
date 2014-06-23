@@ -20,7 +20,7 @@ class VirtualPiggy {
         $this->config = (object)$config;
         $this->config->HeaderNamespace = 'vp';
         if (!session_id()) {
-            @session_start();
+            session_start();
         }
 
         if (isset($_SESSION[self::SESSION_FIELD])) {
@@ -89,14 +89,7 @@ class VirtualPiggy {
     private function getAllPaymentAccounts($token) {
         return $this->getPaymentService()->GetPaymentAccounts($token);
     }
-    private function getErrorMessage() {
-        $error = '';
-        if ($this->user->childs->ErrorMessage)
-            $error = $this->user->childs->ErrorMessage;
-        else if ($this->user->payment->ErrorMessage)
-            $error = $this->user->payment->ErrorMessage;
-        return $error;
-    }
+
     public function getUserData() {
         $user = (array)$this->user;
         $dto = array(
@@ -113,11 +106,6 @@ class VirtualPiggy {
             $dto['role'] = self::USER_TYPE_CHILD;
         }
 
-        if ($this->getErrorMessage()) {
-            $dto['errorMessage'] = $this->getErrorMessage();
-        }
-
-
         if ($this->isParent() && isset($user['childs']) && is_array($user['childs'])) {
             foreach ($user['childs'] as $child) {
                 $child = (array)$child;
@@ -128,7 +116,7 @@ class VirtualPiggy {
         if ($this->isParent() && isset($user['payment']) && is_array($user['payment'])) {
             foreach ($user['payment'] as $payment) {
                 $payment = (array)$payment;
-                $dto['payment'][$payment['Type']] = $payment['Name'];
+                $dto['payment'][$payment['Type']] = $payment['Url'];
             }
         }
 
@@ -319,7 +307,7 @@ class VirtualPiggy {
         $shippingAddressDTO->Phone = $order->billing_phone;
         $shippingAddressDTO->ParentEmail = $order->billing_email;
         $shippingAddressDTO->ChildName = $this->user->selectedChildName;
-        $shippingAddressDTO->ParentName = '';
+        $shippingAddressDTO->ParentName = 'John Doe';
 
         return $shippingAddressDTO;
     }
@@ -335,7 +323,7 @@ class VirtualPiggy {
         $shippingAddressDTO->Phone = $purchase->phone;
         $shippingAddressDTO->ParentEmail = $purchase->email;
         $shippingAddressDTO->ChildName = $this->user->selectedChildName;
-        $shippingAddressDTO->ParentName = '';
+        $shippingAddressDTO->ParentName = 'John Doe';
 
         return $shippingAddressDTO;
     }
@@ -344,7 +332,7 @@ class VirtualPiggy {
         $this->user->selectedPaymentMethod = $this->getPaymentIdentifier($paymentName);
     }
 
-    private function getSelectedPaymentMethod() {
+    public function getSelectedPaymentMethod() {
         return $this->user->selectedPaymentMethod;
     }
 
@@ -357,7 +345,7 @@ class VirtualPiggy {
         return $this->user->selectedChild;
     }
 
-    private function getSelectedChildName() {
+    public function getSelectedChildName() {
         return $this->user->selectedChildName;
     }
 

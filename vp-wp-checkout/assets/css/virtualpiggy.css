@@ -1,41 +1,16 @@
-@import url('http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300');
-body {
-    font-family: Helvetica, 'Open Sans Condensed', sans-serif;
-}
-
-img.virtualpiggy-button {
+.virtualpiggy-button {
     cursor: pointer;
-    margin-bottom: 30px;
-    border: none;
-    padding: 5px;
-}
-
-img#OinkLogo {
-    background: #fff;
-    margin-bottom: 20px;
-}
-.check-out-left {
-    float: left;
-    display: inline-block;
-    width: 500px;
-    background-color: #fff;
-    box-shadow: 3px 0px 5px -2px rgba(0, 0, 0, 0.25);
-}
-.info-panel {
-    float: right;
-    display: inline-block;
-    width: 200px;
-    padding: 55px 30px;
+    margin-bottom: 30px
 }
 
 .virtualpiggy-loginbox {
-    padding-top:20px;
-    background-color: #fff;
-    width: 650px;
+    padding: 40px;
+    width: 614px;
     height: auto;
     position: fixed;
     z-index: 10001;
-    outline: 9999px solid rgba(0, 0, 0, .6);
+    outline: 9999px solid rgba(0,0,0,.6);
+    background-color: #fff;
     border-radius: 5px 5px 5px 5px;
 }
 
@@ -46,10 +21,6 @@ img#OinkLogo {
     text-align: center;
     width: 140px;
 }
-select.country_to_state,
-select.state_select{
-    display:none !important;
-}
 
 .virtualpiggy-field-row {
     margin-bottom: 10px;
@@ -57,30 +28,31 @@ select.state_select{
 
 .virtualpiggy-field-row input,
 .virtualpiggy-field-row select {
-    display: inline-block;
-    float: none;
-    width: 300px;
-    margin-bottom: 0;
-    margin-left: 0;
-    color: #424242;
-    height: 25px;
-    background-color: #FFFFFF;
-    border: 1px solid #CCCCCC;
-    cursor: pointer;
-    border-radius: 4px !important;
-    font-size: 14px;
-    font-family: Helvetica, 'Open Sans Condensed', sans-serif;
+    float: left !important;
+    width: 200px !important;
+    height: 20px !important;
+    border-radius: 2px !important;
+    padding: 3px !important;
+}
+
+.virtualpiggy-form-child .virtualpiggy-field-row select {
+    margin-top: 6px !important;
+    padding: 0 !important;
+    width: 160px !important;
 }
 
 .virtualpiggy-field-row label {
-    float: left;
-    padding-top: 5px;
-    width: 160px;
-    color: #555555;
-    display: block;
-    margin-bottom: 10px;
-    font-size: 16px;
-    font-family: Helvetica, 'Open Sans Condensed', sans-serif;
+    float: left !important;
+    width: 100px !important;
+    color: #555555 !important;
+    float: left !important;
+    font-size: 12px !important;
+    padding-top: 6px !important;
+    width: 100px !important;
+}
+
+.virtualpiggy-form-child .virtualpiggy-field-row label {
+    width: 130px !important;
 }
 
 .virtualpiggy-field-row .clearfix {
@@ -92,332 +64,80 @@ select.state_select{
     width: 315px !important;
 }
 
+.virtualpiggy-form {
+    margin: 20px auto 0 !important;
+    width: 315px !important;
+}
+
 .virtualpiggy-loginbox img {
+    background-color: #BBCCDD !important;
     border-radius: 7px 7px 7px 7px !important;
     display: block;
-    margin: 10px auto 0;
-    padding: 10px !important;
+    margin: 10px auto 0 !important;
+    padding: 4px !important;
 }
 
 .vp-loading-container {
     margin: 50px auto !important;
 }
 
-div.virtualpiggy-payment-row input {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #ff0800;
-    font-size: 12px;
+div.virtualpiggy-payment-row img {
+    float: left;
+    margin: 0 !important;
 }
 
-.virtualpiggy-radio-select input {
-    height: 2px;
-    width: 2px;
+div.virtualpiggy-payment-row input {
+    display: block !important;
+    float: left !important;
+    height: auto !important;
+    margin: 10px !important;
 }
 
 div .vp-button-container {
     bottom: 10px;
-    left: -10px;
+    left: 0;
     position: absolute;
     text-align: center;
     width: 100%;
-    padding-top: 30px;
-    height: 30px;
 }
 
-.virtualpiggy-button-cancel {
-    float: right;
-    font-size: 14px;
-    margin-left: 5px;
-    margin-right: 5px;
-    width: 88px;
-    height: 28px;
-    border-radius: 4px;
-    color: #ffffff;
-    text-align: center;
-    cursor: pointer;
-    border: 1px solid #bebebe;
-    background-color: #c5c4c4;
-    background: -moz-linear-gradient(top, #c5c4c4 0%, #adacac 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #c5c4c4), color-stop(100%, #adacac));
-    background: -webkit-linear-gradient(top, #c5c4c4 0%, #adacac 100%);
-    background: -o-linear-gradient(top, #c5c4c4 0%, #adacac 100%);
-    background: -ms-linear-gradient(top, #c5c4c4 0%, #adacac 100%);
-    background: linear-gradient(to bottom, #c5c4c4 0%, #adacac 100%);
-}
+.virtualpiggy-checkout-index .grid_6 {margin:30px 0px 0px 0px; width:930px;}
+.virtualpiggy-checkout-index .grid_6 #checkout-review-load #checkout-review-table-wrapper {margin:0px 0px 30px 0px;}
+.virtualpiggy-checkout-index .grid_6 #checkout-review-load #checkout-review-table-wrapper #checkout-review-table {margin:0px;}
+.virtualpiggy-checkout-index .grid_6 #checkout-review-load #checkout-review-submit #review-buttons-container button {background:url('../img/order.png') 0px 0px no-repeat; border:none; border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px; float:right; height:33px; padding:0px; transition:none; -moz-transition:none; -ms-transition:none; -o-transition:none; -webkit-transition:none; text-indent:-9999px; width:112px;}
 
-.virtualpiggy-button-cancel:hover {
-    background: #c5c4c4;
-    color: #ffffff;
-}
+#virtual-piggy-pay a#virtual-piggy-checkout-button {background:url('../img/pay-with-vp.png') no-repeat; display:block; height:53px; margin:0 auto; width:150px;}
 
-.vp-select-child-button {
-    font-size: 14px;
-    float: right;
-    margin-left: 5px;
-    margin-right: 10px;
-    width: 88px;
-    height: 28px;
-    border: 1px solid #EE7A27;
-    background-color: #F57D28;
-    background: -moz-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #F68B3E), color-stop(100%, #EE7A27));
-    background: -webkit-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
-    background: -o-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
-    background: -ms-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
-    background: linear-gradient(to bottom, #F68B3E 0%, #EE7A27 100%);
-    border-radius: 4px;
-    color: #ffffff;
-    text-align: center;
-    cursor: pointer;
-}
+#virtual-piggy-login {background:#fff url('https://cdn.virtualpiggy.com/public/images/checkout-logo-192x75.png') center top no-repeat; height:auto; margin:0 auto; padding:70px 0px 0px 0px; overflow:hidden; width:auto;}
 
-.vp-select-child-button:hover {
-    text-decoration: none;
-    background: #F57D28;
-    color: #ffffff;
-}
+#virtual-piggy-login #vp-close {background:url('../images/virtualpiggy/checkout/vp-close.png') no-repeat; cursor:pointer; height:17px; position:absolute; right:30px; top:30px; width:17px;}
+#virtual-piggy-login p {color:#f16312; font-size:17px; font-weight:bold; padding:0px 100px; text-align:center;}
+#virtual-piggy-login .input-box {margin:0 auto; text-align:center;}
+#virtual-piggy-login input {border:1px solid #c0c0bf; border-radius:5px; color:#5c6263; font-size:16px; padding:5px; width:390px;}
+#virtual-piggy-login input:first-child {margin:0px 0px 13px 0px;}
 
-.vp-select-payment-button {
-    font-size: 14px;
-    float: right;
-    margin-left: 5px;
-    margin-right: 10px;
-    width: 88px;
-    height: 28px;
-    border: 1px solid #EE7A27;
-    background-color: #F57D28;
-    background: -moz-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #F68B3E), color-stop(100%, #EE7A27));
-    background: -webkit-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
-    background: -o-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
-    background: -ms-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
-    background: linear-gradient(to bottom, #F68B3E 0%, #EE7A27 100%);
-    border-radius: 4px;
-    color: #ffffff;
-    text-align: center;
-    cursor: pointer;
-}
+#virtual-piggy-login p#virtual-piggy-errors-container {display:block; height:20px; line-height:20px; margin:0px 0px 13px 0px;}
+#virtual-piggy-login #advice-required-entry-virtual-piggy-login-password, #virtual-piggy-login #advice-required-entry-virtual-piggy-login-userid {display:none;}
 
-.vp-select-payment-button:hover {
-    text-decoration: none;
-    background: #F57D28;
-    color: #ffffff;
-}
+#virtual-piggy-login .buttons-set {height:31px; text-align:center;}
+#virtual-piggy-login .buttons-set .login-form-button {background:url('../images/virtualpiggy/checkout/vp-login.png') no-repeat top left; border:none; cursor:pointer; display:inline-block; height:32px; margin:0px 25px 0px 0px; vertical-align:middle; width:98px;}
+#virtual-piggy-login .buttons-set .signup-form-button {background:url('../images/virtualpiggy/checkout/vp-signup.png') no-repeat top left; border:none; cursor:pointer; display:inline-block; height:32px; vertical-align:middle; width:108px;}
 
-#virtual-piggy-login {
-    background: #fff url('//cdn.virtualpiggy.com/public/images/checkout-logo-192x75.png') center top no-repeat;
-    height: auto;
-    margin: 0 auto;
-    padding: 70px 0px 0px;
-    overflow: hidden;
-    width: auto;
-    border-radius: 5px 5px 5px 5px;
-}
+#virtual-piggy-login #vp-loader {background:url('../images/virtualpiggy/checkout/loader.gif') no-repeat; height:31px; margin:0px auto; width:31px;}
 
-#virtual-piggy-login #vp-close {
-    background: url('../images/virtualpiggy/checkout/vp-close.png') no-repeat;
-    cursor: pointer;
-    height: 17px;
-    position: absolute;
-    right: 30px;
-    top: 20px;
-    width: 17px;
-}
+#virtual-piggy-login ul {margin:30px 0px 0px 0px; text-align:center;padding-left:0;}
+#virtual-piggy-login ul li {font-size:16px; line-height:20px; font-weight:bold; list-style:none; padding-left:0;}
+#virtual-piggy-login ul li a {color:#1e6fc4; text-decoration:underline;}
 
-#virtual-piggy-login p {
-    color: #f16312;
-    font-size: 17px;
-    font-weight: bold;
-    padding: 0px 100px;
-    text-align: center;
-}
+.checkout-cart-index #cboxContent {border:none; padding:40px;}
+.checkout-cart-index #cboxClose {display:none; opacity:0;}
 
-#virtual-piggy-login .input-box {
-    margin: 0 auto;
-    text-align: center;
-}
+.virtualpiggy-checkout-parentconfirmation h1 {color:#1e6fca; font-size:35px; font-weight:bold; line-height:35px; margin:0px; padding:0px;}
+.virtualpiggy-checkout-parentconfirmation .grid_6 {margin:30px 0px 0px 0px; width:930px;}
 
-#virtual-piggy-login input {
-    border: 1px solid #c0c0bf;
-    border-radius: 5px;
-    color: #5c6263;
-    font-size: 16px;
-    padding: 5px;
-    width: 450px;
-}
-
-#virtual-piggy-login input:first-child {
-    margin: 0px 0px 13px 0px;
-}
-
-p#errorMessage,
-#virtual-piggy-login p#virtual-piggy-errors-container {
-    display: block;
-    margin: 0px 0px 5px 5px;
-    font-size: 12px;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #ff0800
-}
-
-#virtual-piggy-login p#virtual-piggy-errors-container {
-    position: relative;
-    top: -10px;
-    margin: 5px;
-}
-
-#virtual-piggy-login #advice-required-entry-virtual-piggy-login-password, #virtual-piggy-login #advice-required-entry-virtual-piggy-login-userid {
-    display: none;
-}
-
-#virtual-piggy-login .buttons-set .login-form-button {
-    font-size: 14px;
-    float: right;
-    margin-right: 93px;
-    margin-bottom:10px;
-    width: 88px;
-    height: 28px;
-    border-radius: 4px;
-    text-align: center;
-    cursor: pointer;
-    color: #ffffff;
-    border: 1px solid #EE7A27;
-    background-color: #F57D28;
-    background: -moz-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #F68B3E), color-stop(100%, #EE7A27));
-    background: -webkit-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
-    background: -o-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
-    background: -ms-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
-    background: linear-gradient(to bottom, #F68B3E 0%, #EE7A27 100%);
-}
-
-#virtual-piggy-login .buttons-set .login-form-button:hover {
-    text-decoration: none;
-    background: #F57D28;
-    color: #ffffff;
-}
-
-fieldset {
-    margin-bottom: 5px;
-}
-#VP-info {
-    margin-top:20px;
-    padding-right:40px;
-    padding-left: 40px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    background-color: #f8f8f8;
-    border-top: 1px solid #cccccc;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-
-.what-is-VP {
-    display: block;
-    font-size: 19px;
-    margin-top: 10px;
-    text-align: center;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #333;
-}
-
-.what-is-VP-message {
-    margin: 0px;
-    text-align: center;
-    font-family: Helvetica, 'Open Sans Condensed', sans-serif;
-    padding-bottom: 10px;
-}
-
-.dark-grey, a.dark-grey:hover {
-    color: #555555;
-}
-
-a#sign-up-button {
-    width: 130px;
-    display:block;
-    margin-left: auto;
-    margin-right:auto;
-    height:26px;
-    padding: 1px 6px;
-    border-radius: 4px;
-    font-size: 14px;
-    text-align: center;
-    border: 1px solid #03A2A7;
-    color: #ffffff;
-    text-decoration: none;
-    background-color: #0AA5A8;
-    font-family: Helvetica,'Open Sans Condensed',sans-serif;
-    font-weight: 200;
-    -webkit-background-origin: padding-box;
-    background: -moz-linear-gradient(top, #39C4CB 0%, #03A2A7 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#39C4CB), color-stop(100%,#03A2A7));
-    background: -webkit-linear-gradient(top, #39C4CB 0%,#03A2A7 100%);
-    background: -o-linear-gradient(top, #39C4CB 0%,#03A2A7 100%);
-    background: -ms-linear-gradient(top, #39C4CB 0%,#03A2A7 100%);
-    background: linear-gradient(to bottom, #39C4CB 0%,#03A2A7 100%);
-
-}
-a#sign-up-button:hover {
-    text-decoration: none;
-    background: #0AA5A8;
-    color: #ffffff;
-}
-
-#virtual-piggy-login #vp-loader {
-    background: url('../images/virtualpiggy/checkout/loader.gif') no-repeat;
-    height: 31px;
-    margin: 0px auto;
-    width: 31px;
-}
-
-#virtual-piggy-login ul {
-    margin: 30px 0px 0px 0px;
-    text-align: center;
-    padding-left: 0;
-}
-
-#virtual-piggy-login ul li {
-    font-size: 16px;
-    line-height: 20px;
-    font-weight: bold;
-    list-style: none;
-    padding-left: 0;
-}
-
-#virtual-piggy-login ul li a {
-    color: #1e6fc4;
-    text-decoration: underline;
-}
-
-.checkout-cart-index #cboxContent {
-    border: none;
-    padding: 40px;
-}
-
-.checkout-cart-index #cboxClose {
-    display: none;
-    opacity: 0;
-}
-
-.virtualpiggy-checkout-parentconfirmation h1 {
-    color: #1e6fca;
-    font-size: 35px;
-    font-weight: bold;
-    line-height: 35px;
-    margin: 0px;
-    padding: 0px;
-}
-
-.virtualpiggy-checkout-parentconfirmation .opc {
-    margin: 30px 0px 30px 0px;
-}
-
-.virtualpiggy-checkout-parentconfirmation .opc li .step {
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-.virtualpiggy-checkout-parentconfirmation .opc li .step .form-list li {
-    display: inline-block;
-}
+.virtualpiggy-checkout-parentconfirmation .opc {margin:30px 0px 30px 0px;}
+.virtualpiggy-checkout-parentconfirmation .opc li .step {font-family:Arial, Helvetica, sans-serif;}
+.virtualpiggy-checkout-parentconfirmation .opc li .step .form-list li {display:inline-block;}
 
 button.oink_button {
     background-color: #FFAC47;
@@ -426,7 +146,7 @@ button.oink_button {
     border-width: 1px;
     color: #FFFFFF;
     cursor: pointer;
-    font: bold 12px arial, helvetica, sans-serif;
+    font: bold 12px arial,helvetica,sans-serif;
     padding: 0 7px 1px;
     text-align: center !important;
     white-space: nowrap;
@@ -437,8 +157,7 @@ button.oink_failure {
     border-color: #D24403 #A92000 #A92000 #D24403;
     color: #FFFFFF;
 }
-
 button.oink_success {
-    background-color: #5B9657;
+    background-color:#5B9657;
     border-color: #46745E;
 }
