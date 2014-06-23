@@ -178,8 +178,7 @@ window.VPCart = (function ($) {
             });
         },
         errorMessage: function (element, message) {
-            var div = document.getElementById(element);
-            div.innerHTML = div.innerHTML + message;
+            $(element).append(message);
         },
         hideLoading: function () {
             $("#vp-loader").hide();
