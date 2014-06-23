@@ -11,13 +11,26 @@ img.virtualpiggy-button {
 
 img#OinkLogo {
     background: #fff;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+}
+.check-out-left {
+    float: left;
+    display: inline-block;
+    width: 500px;
+    background-color: #fff;
+    box-shadow: 3px 0px 5px -2px rgba(0, 0, 0, 0.25);
+}
+.info-panel {
+    float: right;
+    display: inline-block;
+    width: 200px;
+    padding: 55px 30px;
 }
 
 .virtualpiggy-loginbox {
+    padding-top:20px;
     background-color: #fff;
-    padding: 40px;
-    width: 614px;
+    width: 650px;
     height: auto;
     position: fixed;
     z-index: 10001;
@@ -32,6 +45,10 @@ img#OinkLogo {
     text-align: center;
     width: 140px;
 }
+select.country_to_state,
+select.state_select{
+    display:none !important;
+}
 
 .virtualpiggy-field-row {
     margin-bottom: 10px;
@@ -45,7 +62,6 @@ img#OinkLogo {
     margin-bottom: 0;
     margin-left: 0;
     color: #424242;
-    vertical-align: middle;
     height: 25px;
     background-color: #FFFFFF;
     border: 1px solid #CCCCCC;
@@ -79,7 +95,7 @@ img#OinkLogo {
     border-radius: 7px 7px 7px 7px !important;
     display: block;
     margin: 10px auto 0;
-    padding: 4px !important;
+    padding: 10px !important;
 }
 
 .vp-loading-container {
@@ -99,7 +115,7 @@ div.virtualpiggy-payment-row input {
 
 div .vp-button-container {
     bottom: 10px;
-    left: 0;
+    left: -10px;
     position: absolute;
     text-align: center;
     width: 100%;
@@ -188,12 +204,13 @@ div .vp-button-container {
 }
 
 #virtual-piggy-login {
-    background: #fff url('https://cdn.virtualpiggy.com/public/images/checkout-logo-192x75.png') center top no-repeat;
+    background: #fff url('//cdn.virtualpiggy.com/public/images/checkout-logo-192x75.png') center top no-repeat;
     height: auto;
     margin: 0 auto;
-    padding: 70px 0px 0px 0px;
+    padding: 70px 0px 0px;
     overflow: hidden;
     width: auto;
+    border-radius: 5px 5px 5px 5px;
 }
 
 #virtual-piggy-login #vp-close {
@@ -202,7 +219,7 @@ div .vp-button-container {
     height: 17px;
     position: absolute;
     right: 30px;
-    top: 30px;
+    top: 20px;
     width: 17px;
 }
 
@@ -225,7 +242,7 @@ div .vp-button-container {
     color: #5c6263;
     font-size: 16px;
     padding: 5px;
-    width: 390px;
+    width: 450px;
 }
 
 #virtual-piggy-login input:first-child {
@@ -243,7 +260,7 @@ p#errorMessage,
 
 #virtual-piggy-login p#virtual-piggy-errors-container {
     position: relative;
-    top: -20px;
+    top: -10px;
     margin: 5px;
 }
 
@@ -254,8 +271,8 @@ p#errorMessage,
 #virtual-piggy-login .buttons-set .login-form-button {
     font-size: 14px;
     float: right;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-right: 93px;
+    margin-bottom:10px;
     width: 88px;
     height: 28px;
     border-radius: 4px;
@@ -281,60 +298,64 @@ p#errorMessage,
 fieldset {
     margin-bottom: 5px;
 }
+#VP-info {
+    margin-top:20px;
+    padding-right:40px;
+    padding-left: 40px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #f8f8f8;
+    border-top: 1px solid #cccccc;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
 
 .what-is-VP {
     display: block;
     font-size: 19px;
-    margin-top: 30px;
-    padding-bottom: 20px;
+    margin-top: 10px;
+    text-align: center;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #333;
-    background-color: #fff;
 }
 
 .what-is-VP-message {
     margin: 0px;
+    text-align: center;
     font-family: Helvetica, 'Open Sans Condensed', sans-serif;
-    padding-bottom: 35px;
+    padding-bottom: 10px;
 }
 
 .dark-grey, a.dark-grey:hover {
     color: #555555;
 }
 
-.blue, a.blue:hover {
-    color: #23abd0;
-}
-
-#virtual-piggy-login .buttons-set .signup-form-button {
-    text-decoration: none;
+a#sign-up-button {
+    width: 130px;
+    display:block;
+    margin-left: auto;
+    margin-right:auto;
+    height:26px;
+    padding: 1px 6px;
+    border-radius: 4px;
     font-size: 14px;
-    float: right;
-    margin-left: 5px;
-    margin-right: 5px;
-    width: 88px;
-    height: 28px;
-    border-radius: 4px;
     text-align: center;
-    cursor: pointer;
-    color: #ffffff;
-    border: 1px solid #EE7A27;
-    border-radius: 4px;
-    background-color: #F57D28;
     border: 1px solid #03A2A7;
-    background-color: #0AA5A8;
-    background: -moz-linear-gradient(top, #39C4CB 0%, #03A2A7 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #39C4CB), color-stop(100%, #03A2A7));
-    background: -webkit-linear-gradient(top, #39C4CB 0%, #03A2A7 100%);
-    background: -o-linear-gradient(top, #39C4CB 0%, #03A2A7 100%);
-    background: -ms-linear-gradient(top, #39C4CB 0%, #03A2A7 100%);
-    background: linear-gradient(to bottom, #39C4CB 0%, #03A2A7 100%);
-}
-#virtual-piggy-login .buttons-set .signup-form-button a{
-    text-decoration:none;
     color: #ffffff;
+    text-decoration: none;
+    background-color: #0AA5A8;
+    font-family: Helvetica,'Open Sans Condensed',sans-serif;
+    font-weight: 200;
+    -webkit-background-origin: padding-box;
+    background: -moz-linear-gradient(top, #39C4CB 0%, #03A2A7 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#39C4CB), color-stop(100%,#03A2A7));
+    background: -webkit-linear-gradient(top, #39C4CB 0%,#03A2A7 100%);
+    background: -o-linear-gradient(top, #39C4CB 0%,#03A2A7 100%);
+    background: -ms-linear-gradient(top, #39C4CB 0%,#03A2A7 100%);
+    background: linear-gradient(to bottom, #39C4CB 0%,#03A2A7 100%);
+
 }
-#virtual-piggy-login .buttons-set .signup-form-button:hover {
+a#sign-up-button:hover {
     text-decoration: none;
     background: #0AA5A8;
     color: #ffffff;

@@ -131,7 +131,7 @@ class vp_payment_wc extends WC_Payment_Gateway {
                 'type' => 'select',
                 'options' => static::$paymentMethodShownForOptions,
                 'description' => __('Which users see oink as a checkout option?', 'woothemes'),
-                'default' => 'all',
+                'default' => 'none',
             ),
             'checkoutType' => array(
                 'title' => __('Checkout Type', 'woothemes'),
@@ -390,9 +390,11 @@ class vp_payment_wc extends WC_Payment_Gateway {
         } catch (Exception $e) {
             $message = $e->getMessage();
         }
-
         $user = $this->vp->getUserData();
-
+        if ($user->errorMessage) {
+            $result = false;
+            $message = $user->errorMessage;
+        }
         $this->sendJSON($result, $message, $user);
     }
 
@@ -409,8 +411,11 @@ class vp_payment_wc extends WC_Payment_Gateway {
     }
 
     private function _action_get_data() {
-
-        $this->sendJSON(true, '', $this->vp->getUserData());
+        $data = $this->vp->getUserData();
+        if ($data->errorMessage)
+            $this->sendJSON(false, $data->errorMessage, $data);
+        else
+            $this->sendJSON(true, '', $data);
     }
 
     private function _action_set_options() {

@@ -89,7 +89,14 @@ class VirtualPiggy {
     private function getAllPaymentAccounts($token) {
         return $this->getPaymentService()->GetPaymentAccounts($token);
     }
-
+    private function getErrorMessage() {
+        $error = '';
+        if ($this->user->childs->ErrorMessage)
+            $error = $this->user->childs->ErrorMessage;
+        else if ($this->user->payment->ErrorMessage)
+            $error = $this->user->payment->ErrorMessage;
+        return $error;
+    }
     public function getUserData() {
         $user = (array)$this->user;
         $dto = array(
@@ -105,6 +112,11 @@ class VirtualPiggy {
         } else {
             $dto['role'] = self::USER_TYPE_CHILD;
         }
+
+        if ($this->getErrorMessage()) {
+            $dto['errorMessage'] = $this->getErrorMessage();
+        }
+
 
         if ($this->isParent() && isset($user['childs']) && is_array($user['childs'])) {
             foreach ($user['childs'] as $child) {

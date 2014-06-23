@@ -65,7 +65,6 @@ window.VPCart = (function ($) {
                 })
                 .delegate('#vp-close', 'click', function () {
                     view.hideContentBox();
-                    self.resetForm();
                     location.reload(true);
                 })
                 .delegate('.virtualpiggy-button-login', 'click', function () {
@@ -74,15 +73,8 @@ window.VPCart = (function ($) {
                 .delegate('.virtualpiggy-button-cancel', 'click', function () {
                     self.doLogout();
                     view.hideContentBox();
-                    self.resetForm();
                     view.$form.unblock();
                     location.reload(true);
-                })
-                .delegate('.vp-select-child-button', 'click', function () {
-                    self.doChildSelection();
-                })
-                .delegate('.vp-select-payment-button', 'click', function () {
-                    self.doPaymentSelection();
                 })
                 .delegate('#payment_method_virtual-piggy', 'change', function () {
                     VPCheckout.view.hidePaymentOptions();
@@ -123,6 +115,7 @@ window.VPCart = (function ($) {
             pass = $('#vp-password').val();
 
             if (!user || !pass) {
+                this.errorMessage('#virtual-piggy-errors-container', 'Both username and password are required fields');
                 return;
             }
 
@@ -191,15 +184,18 @@ window.VPCart = (function ($) {
         hideLoading: function () {
             $("#vp-loader").hide();
         },
+        clearErrors: function(element) {
+            $(element).empty();
+        },
         afterLogin: function (success, message, data) {
+            this.clearErrors('#virtual-piggy-errors-container');
             if (!success) {
                 this.errorMessage('virtual-piggy-errors-container', message);
                 this.hideLoading();
+                this.doLogout()
                 return;
             }
-
             this.data = data;
-
             this.routeToCheckout();
         },
         isParent: function () {
@@ -213,8 +209,8 @@ window.VPCart = (function ($) {
 
     VPCart.view = {
         LOADING_URL: '/wp-content/plugins/vp-wp-checkout/assets/images/loading.gif',
-        BUTTON_URL: 'https://cdn.virtualpiggy.com/public/images/accepting-150x49.png',
-        LOGO_URL: 'https://cdn.virtualpiggy.com/public/images/checkout-logo-192x75.png',
+        BUTTON_URL: '//cdn.virtualpiggy.com/public/images/accepting-150x49.png',
+        LOGO_URL: '//cdn.virtualpiggy.com/public/images/checkout-logo-192x75.png',
         $form: null,
         $contentBox: null,
         init: function () {
@@ -236,13 +232,12 @@ window.VPCart = (function ($) {
         },
         showLoginBox: function () {
             this.cleanBox();
-
             var popup_content = '<div id="virtual-piggy-login">';
             popup_content +=        '<div id="vp-close"></div>';
             popup_content +=            '<div class="col-2">';
             popup_content +=                '<form id="virtual-piggy-login-form" method="post">';
             popup_content +=                    '<fieldset>';
-            popup_content +=                        '<ul clas="form-list">';
+            popup_content +=                        '<ul class="form-list">';
             popup_content +=                            '<li>';
             popup_content +=                                '<div class="input-box">';
             popup_content +=                                    '<input type="text" class="input-text required-entry" id="vp-username" placeholder="Username"/>';
@@ -252,22 +247,25 @@ window.VPCart = (function ($) {
             popup_content +=                                '<div class="input-box">';
             popup_content +=                                    '<input type="password" class="input-text required-entry" id="vp-password" placeholder="Password"/>';
             popup_content +=                                '</div>';
+            popup_content +=                                '<p id="virtual-piggy-errors-container"></p>';
+            popup_content +=                            '</li>';
+            popup_content +=                            '<li>';
+            popup_content +=                                '<div class="buttons-set" id="buttons-set">';
+            popup_content +=                                    '<button class="login-form-button virtualpiggy-button-login" type="button">Continue</button>';
+            popup_content +=                                '</div>';
             popup_content +=                            '</li>';
             popup_content +=                        '</ul>';
             popup_content +=                    '</fieldset>';
             popup_content +=                '</form>';
-            popup_content +=                '<p id="virtual-piggy-errors-container"></p>';
-            popup_content +=            '</div>';
-            popup_content +=            '<div class="col-2">';
-            popup_content +=                '<div class="buttons-set" id="buttons-set">';
-            popup_content +=                    '<button class="login-form-button virtualpiggy-button-login" type="button">Continue</button>';
-            popup_content +=                    '<button title="Sign Up" class="signup-form-button"><a target="_blank" href="https://www.oink.com">Sign Up</a></button>';
-            popup_content +=                '</div>';
             popup_content +=            '</div>';
             popup_content +=            '<div id="vp-loader" style="display:none"></div>';
-            popup_content +=            '<div class="what-is-VP bold">What is Oink?</div>';
-            popup_content +=            '<div class="what-is-VP-message dark-grey">Oink is the safe way for kids and teens to save, shop, and give online. <a class="blue" href="http://oink.com/">Learn more</a></div>';
-            popup_content +=    '</div>';
+            popup_content +=            '<div id ="VP-info">';
+            popup_content +=                '<div class="what-is-VP bold">What is Oink?</div>';
+            popup_content +=                '<div class="what-is-VP-message dark-grey">Oink is the safe way for kids and teens to <br/>save, shop, and give online. <a class="blue" href="//oink.com/">Learn more</a></div>';
+            popup_content +=                '<a id="sign-up-button" target="_blank" href="//users.virtualpiggy.com/registration">Sign Up</a></div>';
+            popup_content +=            '</div>';
+            popup_content +=        '</div>';
+
 
             this.$contentBox.append(popup_content);
             $("#vp-username").focus();
@@ -309,13 +307,9 @@ window.VPCart = (function ($) {
         },
         center: function ($el) {
             $el.css("position", "fixed");
-            $el.css('top', ($(window).height() - $($el).height()) / 4 + 'px');
-            $el.css('left', ($(window).width() - $($el).width()) / 2 + 'px');
+            $el.css('top', ($(window).height() - $($el).outerHeight())/4 + 'px');
+            $el.css('left', ($(window).width() - $($el).outerWidth())/2 + 'px');
         },
-        centerContentBox: function () {
-            this.center(this.getContentBox);
-        },
-
         cleanBox: function () {
             this.getContentBox().children(':not(img)').remove();
         },
@@ -330,16 +324,6 @@ window.VPCart = (function ($) {
 
         isShopp: function () {
             return $('#shopp').size() > 0;
-        },
-        resetForm: function () {
-            var data = '';
-            var dict = this.getFilledForm(data);
-            $.each(dict, function (key, value) {
-                $(key).val('');
-            });
-            $('#payment_method_virtual-piggy').attr('checked', false);
-            VPCheckout.view.showPaymentOptions();
-            VPCheckout.view.showShippingForm();
         },
         selectVirtualPiggyPaymentMethod: function () {
             $('#payment_method_virtual-piggy').attr('checked', true);

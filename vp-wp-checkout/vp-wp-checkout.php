@@ -1,11 +1,11 @@
 <?php
 /*
-Plugin Name: VirtualPiggy payment gateway
-Plugin URI:
-Description: VirtualPiggy payment gateway for Woocommerce/Shopp
+Plugin Name: Oink
+Plugin URI: https://github.com/VirtualPiggyInc/oink_woocommerce
+Description: Oink payment gateway for Woocommerce and Shopp
 Author: Summa Solutions
 Author URI: http://summasolutions.net
-Version: 0.0.8
+Version: 1.0.0
 */
 
 if (!defined('ABSPATH')) {

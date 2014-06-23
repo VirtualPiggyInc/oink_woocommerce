@@ -532,7 +532,7 @@ class dtoWishlistItem
         $doc->appendChild($item);
 
         $doc->formatOutput = true;
-        return $doc->saveXML($doc);
+        return $doc->saveXML($Total);
     }
     
     public function toEscapedXml()
