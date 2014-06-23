@@ -66,7 +66,7 @@ class VirtualPiggySubscriptionService implements ISubscriptionService {
             $result_dto->Name = $result->ProcessSubscriptionResult->Name;
             $result_dto->Type = $result->ProcessSubscriptionResult->Type;
         } catch (Exception $e) {
-            $result_dto->ErrorMessage = "Exception occured: " . $e;    
+            $result_dto->ErrorMessage = $e->getMessage();
         }
         return $result_dto;
     }
@@ -97,7 +97,7 @@ class VirtualPiggySubscriptionService implements ISubscriptionService {
             $result_dto->Name = $result->ProcessParentSubscriptionResult->Name;
             $result_dto->Type = $result->ProcessParentSubscriptionResult->Type;
         } catch (Exception $e) {
-            $result_dto->ErrorMessage = "Exception occured: " . $e;
+            $result_dto->ErrorMessage = $e->getMessage();
         }
         return $result_dto;
     }
@@ -120,7 +120,7 @@ class VirtualPiggySubscriptionService implements ISubscriptionService {
             $result_dto->Status = $result->MerchantCancelSubscriptionResult->Status;
             $result_dto->Token = $result->MerchantCancelSubscriptionResult->scalar;
         } catch (Exception $e) {
-            $result_dto->ErrorMessage = "Exception occured: " . $e;
+            $result_dto->ErrorMessage = $e->getMessage();
             return $result_dto;
         }
         return $result_dto;
@@ -161,7 +161,7 @@ class VirtualPiggySubscriptionService implements ISubscriptionService {
             }
             return $transactions;
         } catch (Exception $e) {
-            $result_dto->ErrorMessage = "Exception occured: " . $e;
+            $result_dto->ErrorMessage = $e->getMessage();
             return $result_dto;    
         }
         return $result_dto;
@@ -177,7 +177,7 @@ class VirtualPiggySubscriptionService implements ISubscriptionService {
             );
             $result = $client->ApproveSubscription($params);
         } catch (Exception $e) {
-            $result_dto->ErrorMessage = "Exception occured: " . $e;
+            $result_dto->ErrorMessage = $e->getMessage();
             return $result_dto;    
         }
         return $result;
@@ -195,7 +195,7 @@ class VirtualPiggySubscriptionService implements ISubscriptionService {
             );
             $result = $client->ApproveSubscription($params);
         } catch (Exception $e) {
-            $result_dto->ErrorMessage = "Exception occured: " . $e;
+            $result_dto->ErrorMessage = $e->getMessage();
             return $result_dto;    
         }
         return $result;
