@@ -6,4 +6,4 @@
 ##Shopp##
 
 
-All Right Reserved - Summa 2012
+All Right Reserved - Oink 2012

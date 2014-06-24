@@ -1,6 +1,3 @@
-/**
- * @author Summa Solutions (c)
- */
 window.VPCheckout = (function ($) {
     if (window.VPCheckout) {
         return window.VPCheckout;
