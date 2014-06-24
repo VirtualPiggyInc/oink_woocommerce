@@ -412,6 +412,91 @@ class dtoSubscription
     }
 }
 
+
+/**
+  This are the line items of an order which contain specific information about the product purchased.
+ * "Items" are not mandatory and instances of an item can occur multiple times to represent multiple
+ * products being purchased.
+ */
+class dtoCartItem
+{
+    /**
+     *
+     * This is the name of a product. For example,
+     * ======================================================
+     * Lego Star Wars Plo Koon's Jedi Starfighter
+     */
+    var $Name;
+    /**
+    *
+    * This is a brief description of a product. For example,
+    * ======================================================
+    * LEGO Star Wars Plo Koon's Jedi Starfighter (8093). Lead the search for General Grievous with Jedi Master Plo Koon! Jedi Master Plo Koon, leader of a Clone Army taskforce, scours the spacelanes for General Grievous' new superweapon, Malevolence, as seen in Star Wars: The Clone Wars. If the mission proves too dangerous, Plo Koon can eject from his starfighter and live to fight the Separatists another day! Set includes Jedi Master Plo Koon minifigure, new R7-D4 astromech droid and Jedi starfighter with ejection seat in the cockpit.
+    * The LEGO Star Wars Plo Koon's Jedi Starfighter (8093) features:
+    * Set contains 175 pieces
+    * Includes Jedi Master Plo Koon minifigure and a new R7-D4 astromech droid
+    * Plo Koon's starfighter features cockpit ejection seat
+    * Plo Koon's Starfighter measures 10" (26 cm) long!
+    */
+    var $Description;
+    /**
+     * This is the unit price for a product.
+     */
+    var $Price;
+    /**
+     * These are the amount of units of a product which are being purchased.
+     */
+    var $Quantity;
+    /**
+     * This is the line item total. Equivalent to unit price multiplied by quantity.
+     */
+    var $Total;
+    /**
+     * Used to serialize line items to Virtual Piggy specific XML
+     */
+    public function ToXml()
+    {
+
+        $doc = new DOMDocument();
+
+        $item=  $this->getXmlNode($doc);
+        $doc->appendChild($item);
+
+        $doc->formatOutput = true;
+        return $doc->saveXML($Total);
+    }
+
+    public function toEscapedXml()
+    {
+        return htmlspecialchars($this->ToXml(), ENT_QUOTES);
+    }
+
+    public function getXmlNode($doc){
+        $item = $doc->createElement('item');
+        $item->setAttribute("total", $this->Total);
+
+        $elements = $this->_getXmlElements();
+
+        foreach ($elements as $key => $content) {
+            $newElementCDATA = $doc->createCDATASection($content);
+            $newElement = $doc->createElement($key);
+            $newElement->appendChild($newElementCDATA);
+            $item->appendChild($newElement);
+        }
+        return $item;
+    }
+
+    protected function _getXmlElements()
+    {
+        return array(
+            'item-name' => $this->Name,
+            'item-description' => $this->Description,
+            'item-price' => $this->Price,
+            'item-quantity' => $this->Quantity,
+        );
+    }
+
+}
 class dtoWishlistStatus
 {
   var $Children;
@@ -421,6 +506,62 @@ class dtoWishlistStatus
   var $TransactionStatus;
 }
 
+class dtoWishlistItem
+{
+    /**
+     * Item SKU
+     */
+    var $Identifier;
+    /**
+     * The URL of the product on the merchant's site
+     */
+    var $Url;
+    /**
+     * This is a brief description of a product. For example,
+     */
+    var $Description;
+
+    var $Total;
+
+    public function ToXml()
+    {
+
+        $doc = new DOMDocument();
+
+        $item=  $this->getXmlNode($doc);
+        $doc->appendChild($item);
+
+        $doc->formatOutput = true;
+        return $doc->saveXML($Total);
+    }
+
+    public function toEscapedXml()
+    {
+        return htmlspecialchars($this->ToXml(), ENT_QUOTES);
+    }
+
+    public function getXmlNode($doc){
+        $item = $doc->createElement('item');
+        $elements = $this->_getXmlElements();
+
+        foreach ($elements as $key => $content) {
+            $newElementCDATA = $doc->createTextNode($content);
+            $newElement = $doc->createElement($key);
+            $newElement->appendChild($newElementCDATA);
+            $item->appendChild($newElement);
+        }
+        return $item;
+    }
+
+    protected function _getXmlElements()
+    {
+        return array(
+            'Identifier' => $this->Identifier,
+            'Url' => $this->Url,
+            'Description' => $this->Description
+        );
+    }
+}
 /**
  * This object contains the information ralted to the status of a transaction which Virtual Piggy 
  * sends after a transaction is approved.
