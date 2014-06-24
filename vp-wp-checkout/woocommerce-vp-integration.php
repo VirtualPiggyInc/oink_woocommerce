@@ -263,12 +263,7 @@ class vp_payment_wc extends WC_Payment_Gateway {
             if(function_exists(wc_add_notice))
                 wc_add_notice($e->getMessage(),'error');
             else
-<<<<<<< HEAD
                 $woocommerce->add_error($e->getMessage());
-=======
-                $woocommerce->add_error(__('Payment error:', 'woothemes') . $e->getMessage());
->>>>>>> fa68766d7430ab458de8c1d0c1787187be08e45d
-
             return array(
                 'result' => 'fail'
             );
@@ -457,11 +452,7 @@ class vp_payment_wc extends WC_Payment_Gateway {
             if(function_exists(wc_add_notice))
                 wc_add_notice($data['ErrorMessage'],'error');
             else
-<<<<<<< HEAD
                 $woocommerce->add_error($data['ErrorMessage']);
-=======
-                $woocommerce->add_error(__('Payment error:', 'woothemes') . $data['ErrorMessage']);
->>>>>>> fa68766d7430ab458de8c1d0c1787187be08e45d
         }
 
         $this->sendJSON($status, $data['ErrorMessage'], $data);
