@@ -263,7 +263,11 @@ class vp_payment_wc extends WC_Payment_Gateway {
             if(function_exists(wc_add_notice))
                 wc_add_notice($e->getMessage(),'error');
             else
+<<<<<<< HEAD
                 $woocommerce->add_error(__('Payment error:', 'woothemes') . $e->getMessage());
+=======
+                $woocommerce->add_error(__('Oink error:', 'woocommerce') . $e->getMessage());
+>>>>>>> origin/woocomm-and-shopp-fixes
 
             return array(
                 'result' => 'fail'
@@ -453,7 +457,11 @@ class vp_payment_wc extends WC_Payment_Gateway {
             if(function_exists(wc_add_notice))
                 wc_add_notice($data['ErrorMessage'],'error');
             else
+<<<<<<< HEAD
                 $woocommerce->add_error(__('Payment error:', 'woothemes') . $data['ErrorMessage']);
+=======
+                $woocommerce->add_error(__('Oink error:', 'woocommerce') . $data['ErrorMessage']);
+>>>>>>> origin/woocomm-and-shopp-fixes
         }
         $this->sendJSON($status, $data['ErrorMessage'], $data);
     }
