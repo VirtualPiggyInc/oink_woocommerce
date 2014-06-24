@@ -455,6 +455,7 @@ class vp_payment_wc extends WC_Payment_Gateway {
             else
                 $woocommerce->add_error(__('Payment error:', 'woothemes') . $data['ErrorMessage']);
         }
+
         $this->sendJSON($status, $data['ErrorMessage'], $data);
     }
 
