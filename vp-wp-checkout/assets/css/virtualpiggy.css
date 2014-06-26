@@ -4,47 +4,46 @@ body {
 }
 
 img.virtualpiggy-button {
-    cursor: pointer;
-    margin-bottom: 30px;
-    border: none;
-    padding: 5px;
+    cursor: pointer !important;
+    margin-bottom: 0px !important;
+    border: none !important;
+    padding: 5px !important;
 }
 
 img#OinkLogo {
-    background: #fff;
-    margin-bottom: 20px;
+    background: #fff !important;
+    margin-bottom: 20px !important;
 }
 .check-out-left {
-    float: left;
-    display: inline-block;
-    width: 500px;
-    background-color: #fff;
-    box-shadow: 3px 0px 5px -2px rgba(0, 0, 0, 0.25);
+    float: left !important;
+    display: inline-block !important;
+    width: 500px !important;
+    background-color: #fff !important;
+    box-shadow: 3px 0px 5px -2px rgba(0, 0, 0, 0.25) !important;
 }
 .info-panel {
-    float: right;
-    display: inline-block;
-    width: 200px;
-    padding: 55px 30px;
+    float: right !important;
+    display: inline-block !important;
+    width: 200px !important;
+    padding: 55px 30px !important;
 }
 
 .virtualpiggy-loginbox {
-    padding-top:20px;
-    background-color: #fff;
-    width: 650px;
-    height: auto;
-    position: fixed;
-    z-index: 10001;
-    outline: 9999px solid rgba(0, 0, 0, .6);
-    border-radius: 5px 5px 5px 5px;
+    padding-top:20px !important;
+    background-color: #fff !important;
+    width: 650px !important;
+    height: auto !important;
+    position: fixed !important;
+    z-index: 10001 !important;
+    outline: 9999px solid rgba(0, 0, 0, .6) !important;
+    display:none;
 }
-
 .virtualpiggy-buttons {
-    bottom: 25px;
-    left: 125px;
-    position: absolute;
-    text-align: center;
-    width: 140px;
+    bottom: 25px !important;
+    left: 125px !important;
+    position: absolute !important;
+    text-align: center !important;
+    width: 140px !important;
 }
 select.country_to_state,
 select.state_select{
@@ -52,35 +51,35 @@ select.state_select{
 }
 
 .virtualpiggy-field-row {
-    margin-bottom: 10px;
+    margin-bottom: 10px !important;
 }
 
 .virtualpiggy-field-row input,
 .virtualpiggy-field-row select {
-    display: inline-block;
-    float: none;
-    width: 300px;
-    margin-bottom: 0;
-    margin-left: 0;
-    color: #424242;
-    height: 25px;
-    background-color: #FFFFFF;
-    border: 1px solid #CCCCCC;
-    cursor: pointer;
+    display: inline-block !important;
+    float: none !important;
+    width: 300px !important;
+    margin-bottom: 0 !important;
+    margin-left: 0 !important;
+    color: #424242 !important;
+    height: 25px !important;
+    background-color: #FFFFFF !important;
+    border: 1px solid #CCCCCC !important;
+    cursor: pointer !important;
     border-radius: 4px !important;
-    font-size: 14px;
-    font-family: Helvetica, 'Open Sans Condensed', sans-serif;
+    font-size: 14px !important;
+    font-family: Helvetica, 'Open Sans Condensed', sans-serif !important;
 }
 
 .virtualpiggy-field-row label {
-    float: left;
-    padding-top: 5px;
-    width: 160px;
-    color: #555555;
-    display: block;
-    margin-bottom: 10px;
-    font-size: 16px;
-    font-family: Helvetica, 'Open Sans Condensed', sans-serif;
+    float: left !important;
+    padding-top: 5px !important;
+    width: 160px !important;
+    color: #555555 !important;
+    display: block !important;
+    margin-bottom: 10px !important;
+    font-size: 16px !important;
+    font-family: Helvetica, 'Open Sans Condensed', sans-serif !important;
 }
 
 .virtualpiggy-field-row .clearfix {
@@ -94,8 +93,8 @@ select.state_select{
 
 .virtualpiggy-loginbox img {
     border-radius: 7px 7px 7px 7px !important;
-    display: block;
-    margin: 10px auto 0;
+    display: block !important;
+    margin: 10px auto 0 !important;
     padding: 10px !important;
 }
 
@@ -104,39 +103,46 @@ select.state_select{
 }
 
 div.virtualpiggy-payment-row input {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #ff0800;
-    font-size: 12px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    color: #ff0800 !important;
+    font-size: 12px !important;
 }
 
 .virtualpiggy-radio-select input {
-    height: 2px;
-    width: 2px;
+    height: 2px !important;
+    width: 2px !important;
 }
 
 div .vp-button-container {
-    bottom: 10px;
-    left: -10px;
-    position: absolute;
-    text-align: center;
-    width: 100%;
+    background-color: #fff !important;
+    overflow:hidden !important;
+    bottom:-45px;
     padding-top: 30px;
-    height: 30px;
+    position: absolute !important;
+    text-align: center !important;
+    width: 651px !important;
 }
 
 .virtualpiggy-button-cancel {
-    float: right;
-    font-size: 14px;
-    margin-left: 5px;
-    margin-right: 5px;
-    width: 88px;
-    height: 28px;
-    border-radius: 4px;
-    color: #ffffff;
-    text-align: center;
-    cursor: pointer;
-    border: 1px solid #bebebe;
-    background-color: #c5c4c4;
+    line-height: 0px !important;
+    padding:0px !important;
+    text-transform: none !important;
+    transition: none !important;
+    vertical-align: baseline !important;
+    font-weight: 200 !important;
+    font-family: Helvetica,'Open Sans Condensed',sans-serif !important;
+    float: right !important;
+    font-size: 14px !important;
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+    width: 88px !important;
+    height: 26px !important;
+    border-radius: 4px !important;
+    color: #ffffff !important;
+    text-align: center !important;
+    cursor: pointer !important;
+    border: 1px solid #bebebe !important;
+    background-color: #c5c4c4 !important;
     background: -moz-linear-gradient(top, #c5c4c4 0%, #adacac 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #c5c4c4), color-stop(100%, #adacac));
     background: -webkit-linear-gradient(top, #c5c4c4 0%, #adacac 100%);
@@ -146,142 +152,173 @@ div .vp-button-container {
 }
 
 .virtualpiggy-button-cancel:hover {
-    background: #c5c4c4;
-    color: #ffffff;
+    background: #c5c4c4 !important;
+    color: #ffffff !important;
+    outline: none !important;
+}
+#vp-username {
+    font-size: 14px !important;
+    font-family: Helvetica,'Open Sans Condensed',sans-serif !important;
+}
+#vp-password {
+    font-size: 14px !important;
+    font-family: Helvetica,'Open Sans Condensed',sans-serif !important;
 }
 
+.blue, a.blue:hover {
+    color: #23abd0 !important;
+}
 .vp-select-child-button {
-    font-size: 14px;
-    float: right;
-    margin-left: 5px;
-    margin-right: 10px;
-    width: 88px;
-    height: 28px;
-    border: 1px solid #EE7A27;
-    background-color: #F57D28;
+    font-size: 14px !important;
+    line-height: 0px !important;
+    padding:0px !important;
+    text-transform: none !important;
+    transition: none !important;
+    vertical-align: baseline !important;
+    display:block !important;
+    font-family: Helvetica,'Open Sans Condensed',sans-serif !important;
+    font-weight: 200 !important;
+    float: right !important;
+    margin-bottom:10px !important;
+    width: 88px !important;
+    height: 26px !important;
+    border-radius: 4px !important;
+    text-align: center !important;
+    cursor: pointer !important;
+    color: #ffffff !important;
+    border: 1px solid #EE7A27 !important;
+    background-color: #F57D28 !important;
     background: -moz-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #F68B3E), color-stop(100%, #EE7A27));
     background: -webkit-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
     background: -o-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
     background: -ms-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
     background: linear-gradient(to bottom, #F68B3E 0%, #EE7A27 100%);
-    border-radius: 4px;
-    color: #ffffff;
-    text-align: center;
-    cursor: pointer;
+    margin-left: 5px !important;
+    margin-right: 10px !important;
 }
 
 .vp-select-child-button:hover {
-    text-decoration: none;
-    background: #F57D28;
-    color: #ffffff;
+    text-decoration: none !important;
+    background: #F57D28 !important;
+    color: #ffffff !important;
+    outline: none !important;
 }
 
 .vp-select-payment-button {
-    font-size: 14px;
-    float: right;
-    margin-left: 5px;
-    margin-right: 10px;
-    width: 88px;
-    height: 28px;
-    border: 1px solid #EE7A27;
-    background-color: #F57D28;
+    font-size: 14px !important;
+    float: right !important;
+    margin-left: 5px !important;
+    margin-right: 10px !important;
+    width: 88px !important;
+    height: 26px !important;
+    border: 1px solid #EE7A27 !important;
+    background-color: #F57D28 !important;
     background: -moz-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #F68B3E), color-stop(100%, #EE7A27));
     background: -webkit-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
     background: -o-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
     background: -ms-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
     background: linear-gradient(to bottom, #F68B3E 0%, #EE7A27 100%);
-    border-radius: 4px;
-    color: #ffffff;
-    text-align: center;
-    cursor: pointer;
+    border-radius: 4px !important;
+    color: #ffffff !important;
+    text-align: center !important;
+    cursor: pointer !important;
+    font-weight: 200 !important;
 }
 
 .vp-select-payment-button:hover {
-    text-decoration: none;
-    background: #F57D28;
-    color: #ffffff;
+    text-decoration: none !important;
+    background: #F57D28 !important;
+    color: #ffffff !important;
+    border: inherit !important;
 }
 
 #virtual-piggy-login {
-    background: #fff url('//cdn.virtualpiggy.com/public/images/checkout-logo-192x75.png') center top no-repeat;
-    height: auto;
-    margin: 0 auto;
-    padding: 70px 0px 0px;
-    overflow: hidden;
-    width: auto;
-    border-radius: 5px 5px 5px 5px;
+    background: #fff url('//cdn.virtualpiggy.com/public/images/checkout-logo-192x75.png') center top no-repeat !important;
+    height: auto !important;
+    margin: 0 auto !important;
+    padding: 70px 0px 0px !important;
+    overflow: hidden !important;
+    width: auto !important;
+    border-radius: 5px 5px 5px 5px !important;
 }
 
 #virtual-piggy-login #vp-close {
-    background: url('../images/virtualpiggy/checkout/vp-close.png') no-repeat;
-    cursor: pointer;
-    height: 17px;
-    position: absolute;
+    background: url('../images/virtualpiggy/checkout/vp-close.png') no-repeat !important;
+    cursor: pointer !important;
+    height: 17px !important;
+    position: absolute !important;
     right: 30px;
-    top: 20px;
-    width: 17px;
+    top: 20px !important;
+    width: 17px !important;
 }
 
 #virtual-piggy-login p {
-    color: #f16312;
-    font-size: 17px;
-    font-weight: bold;
-    padding: 0px 100px;
-    text-align: center;
+    color: #f16312 !important;
+    font-size: 17px !important;
+    font-weight: bold !important;
+    padding: 0px 100px !important;
+    text-align: center !important;
 }
 
 #virtual-piggy-login .input-box {
-    margin: 0 auto;
-    text-align: center;
+    margin: 0 auto !important;
+    text-align: center !important;
 }
 
 #virtual-piggy-login input {
-    border: 1px solid #c0c0bf;
-    border-radius: 5px;
-    color: #5c6263;
-    font-size: 16px;
-    padding: 5px;
-    width: 450px;
+    border: 1px solid #c0c0bf !important;
+    border-radius: 5px !important;
+    color: #5c6263 !important;
+    font-size: 16px !important;
+    padding: 5px !important;
+    width: 450px !important;
 }
 
 #virtual-piggy-login input:first-child {
-    margin: 0px 0px 13px 0px;
+    margin: 0px 0px 13px 0px !important;
 }
 
 p#errorMessage,
 #virtual-piggy-login p#virtual-piggy-errors-container {
-    display: block;
-    margin: 0px 0px 5px 5px;
-    font-size: 12px;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    display: block !important;
+    margin: 0px 0px 5px 5px !important;
+    font-size: 12px !important;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
     color: #ff0800
 }
 
 #virtual-piggy-login p#virtual-piggy-errors-container {
-    position: relative;
-    top: -10px;
-    margin: 5px;
+    position: relative !important;
+    top: -10px !important;
+    margin: 5px !important;
 }
 
 #virtual-piggy-login #advice-required-entry-virtual-piggy-login-password, #virtual-piggy-login #advice-required-entry-virtual-piggy-login-userid {
-    display: none;
+    display: none !important;
 }
 
-#virtual-piggy-login .buttons-set .login-form-button {
-    font-size: 14px;
-    float: right;
-    margin-right: 93px;
-    margin-bottom:10px;
-    width: 88px;
-    height: 28px;
-    border-radius: 4px;
-    text-align: center;
-    cursor: pointer;
-    color: #ffffff;
-    border: 1px solid #EE7A27;
-    background-color: #F57D28;
+#virtual-piggy-login .buttons-set .login-form-button{
+    font-size: 14px !important;
+    padding:0px !important;
+    text-transform: none !important;
+    transition:none !important;
+    vertical-align: baseline !important;
+    display:block !important;
+    font-family: Helvetica,'Open Sans Condensed',sans-serif !important;
+    font-weight: 200 !important;
+    float: right !important;
+    margin-right: 93px !important;
+    margin-bottom:10px !important;
+    width: 88px !important;
+    height: 26px !important;
+    border-radius: 4px !important;
+    text-align: center !important;
+    cursor: pointer !important;
+    color: #ffffff !important;
+    border: 1px solid #EE7A27 !important;
+    background-color: #F57D28 !important;
     background: -moz-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #F68B3E), color-stop(100%, #EE7A27));
     background: -webkit-linear-gradient(top, #F68B3E 0%, #EE7A27 100%);
@@ -291,63 +328,66 @@ p#errorMessage,
 }
 
 #virtual-piggy-login .buttons-set .login-form-button:hover {
-    text-decoration: none;
-    background: #F57D28;
-    color: #ffffff;
+    text-decoration: none !important;
+    background: #F57D28 !important;
+    color: #ffffff !important;
 }
 
 fieldset {
-    margin-bottom: 5px;
+    margin-bottom: 5px !important;
 }
 #VP-info {
-    margin-top:20px;
-    padding-right:40px;
-    padding-left: 40px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    background-color: #f8f8f8;
-    border-top: 1px solid #cccccc;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    margin-top:20px !important;
+    padding-right:40px !important;
+    padding-left: 40px !important;
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+    background-color: #f8f8f8 !important;
+    border-top: 1px solid #cccccc !important;
+    border-bottom-left-radius: 5px !important;
+    border-bottom-right-radius: 5px !important;
 }
 
 .what-is-VP {
-    display: block;
-    font-size: 19px;
-    margin-top: 10px;
-    text-align: center;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #333;
+    display: block !important;
+    font-size: 19px !important;
+    margin-top: 10px !important;
+    text-align: center !important;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    color: #333 !important;
 }
 
 .what-is-VP-message {
-    margin: 0px;
-    text-align: center;
-    font-family: Helvetica, 'Open Sans Condensed', sans-serif;
-    padding-bottom: 10px;
+    margin: 0px !important;
+    text-align: center !important;
+    font-family: Helvetica, 'Open Sans Condensed', sans-serif !important;
+    padding-bottom: 10px !important;
+    font-weight: 200 !important;
+    font-size: 14px !important;
 }
 
 .dark-grey, a.dark-grey:hover {
-    color: #555555;
+    color: #555555 !important;
 }
 
 a#sign-up-button {
-    width: 130px;
-    display:block;
-    margin-left: auto;
-    margin-right:auto;
-    height:26px;
-    padding: 1px 6px;
-    border-radius: 4px;
-    font-size: 14px;
-    text-align: center;
-    border: 1px solid #03A2A7;
-    color: #ffffff;
-    text-decoration: none;
-    background-color: #0AA5A8;
-    font-family: Helvetica,'Open Sans Condensed',sans-serif;
-    font-weight: 200;
-    -webkit-background-origin: padding-box;
+    width: 130px !important;
+    display:block !important;
+    margin-top: 10px;
+    margin-left: auto !important;
+    margin-right:auto !important;
+    height:26px !important;
+    padding: 1px 6px !important;
+    border-radius: 4px !important;
+    font-size: 14px !important;
+    text-align: center !important;
+    border: 1px solid #03A2A7 !important;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    background-color: #0AA5A8 !important;
+    font-family: Helvetica,'Open Sans Condensed',sans-serif !important;
+    font-weight: 200 !important;
+    -webkit-background-origin: padding-box !important;
     background: -moz-linear-gradient(top, #39C4CB 0%, #03A2A7 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#39C4CB), color-stop(100%,#03A2A7));
     background: -webkit-linear-gradient(top, #39C4CB 0%,#03A2A7 100%);
@@ -357,88 +397,88 @@ a#sign-up-button {
 
 }
 a#sign-up-button:hover {
-    text-decoration: none;
-    background: #0AA5A8;
-    color: #ffffff;
+    text-decoration: none !important;
+    background: #0AA5A8 !important;
+    color: #ffffff !important;
 }
 
 #virtual-piggy-login #vp-loader {
-    background: url('../images/virtualpiggy/checkout/loader.gif') no-repeat;
-    height: 31px;
-    margin: 0px auto;
-    width: 31px;
+    background: url('../images/virtualpiggy/checkout/loader.gif') no-repeat !important;
+    height: 31px !important;
+    margin: 0px auto !important;
+    width: 31px !important;
 }
 
 #virtual-piggy-login ul {
-    margin: 30px 0px 0px 0px;
-    text-align: center;
-    padding-left: 0;
+    margin: 30px 0px 0px 0px !important;
+    text-align: center !important;
+    padding-left: 0 !important;
 }
 
 #virtual-piggy-login ul li {
-    font-size: 16px;
-    line-height: 20px;
-    font-weight: bold;
-    list-style: none;
-    padding-left: 0;
+    font-size: 16px !important;
+    line-height: 20px !important;
+    font-weight: bold !important;
+    list-style: none !important;
+    padding-left: 0 !important;
 }
 
 #virtual-piggy-login ul li a {
-    color: #1e6fc4;
-    text-decoration: underline;
+    color: #1e6fc4 !important;
+    text-decoration: underline !important;
 }
 
 .checkout-cart-index #cboxContent {
-    border: none;
-    padding: 40px;
+    border: none !important;
+    padding: 40px !important;
 }
 
 .checkout-cart-index #cboxClose {
-    display: none;
-    opacity: 0;
+    display: none !important;
+    opacity: 0 !important;
 }
 
 .virtualpiggy-checkout-parentconfirmation h1 {
-    color: #1e6fca;
-    font-size: 35px;
-    font-weight: bold;
-    line-height: 35px;
-    margin: 0px;
-    padding: 0px;
+    color: #1e6fca !important;
+    font-size: 35px !important;
+    font-weight: bold !important;
+    line-height: 35px !important;
+    margin: 0px !important;
+    padding: 0px !important;
 }
 
 .virtualpiggy-checkout-parentconfirmation .opc {
-    margin: 30px 0px 30px 0px;
+    margin: 30px 0px 30px 0px !important;
 }
 
 .virtualpiggy-checkout-parentconfirmation .opc li .step {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif !important;
 }
 
 .virtualpiggy-checkout-parentconfirmation .opc li .step .form-list li {
-    display: inline-block;
+    display: inline-block !important;
 }
 
 button.oink_button {
-    background-color: #FFAC47;
-    border-color: #ED6502 #A04300 #A04300 #ED6502;
-    border-style: solid;
-    border-width: 1px;
-    color: #FFFFFF;
-    cursor: pointer;
-    font: bold 12px arial, helvetica, sans-serif;
-    padding: 0 7px 1px;
+    background-color: #FFAC47 !important;
+    border-color: #ED6502 #A04300 #A04300 #ED6502 !important;
+    border-style: solid !important;
+    border-width: 1px !important;
+    color: #FFFFFF !important;
+    cursor: pointer !important;
+    font: bold 12px arial, helvetica, sans-serif !important;
+    padding: 0 7px 1px !important;
     text-align: center !important;
-    white-space: nowrap;
+    white-space: nowrap !important;
 }
 
 button.oink_failure {
-    background-color: #FCAF81;
-    border-color: #D24403 #A92000 #A92000 #D24403;
-    color: #FFFFFF;
+    background-color: #FCAF81 !important;
+    border-color: #D24403 #A92000 #A92000 #D24403 !important;
+    color: #FFFFFF !important;
 }
 
 button.oink_success {
-    background-color: #5B9657;
-    border-color: #46745E;
+    background-color: #5B9657 !important;
+    border-color: #46745E !important;
 }

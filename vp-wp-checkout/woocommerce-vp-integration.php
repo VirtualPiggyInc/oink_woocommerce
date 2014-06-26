@@ -248,11 +248,9 @@ class vp_payment_wc extends WC_Payment_Gateway {
 
 
     function process_payment($order_id) {
-        global $woocommerce;
-
         ignore_order_mails();
         $order = new WC_Order( $order_id );
-
+        global $woocommerce;
         try {
             $result = $this->vp->processPaymentByWooCommerceOrder($order);
             $transactionIdentifier = $result->TransactionIdentifier;
@@ -262,8 +260,9 @@ class vp_payment_wc extends WC_Payment_Gateway {
             $order->update_status('failed', $e->getMessage());
             if(function_exists(wc_add_notice))
                 wc_add_notice($e->getMessage(),'error');
-            else
-                $woocommerce->add_error($e->getMessage());
+            else {
+                $woocommerce->add_error(__('Payment error:', 'woothemes') . $e->getMessage());
+            }
             return array(
                 'result' => 'fail'
             );
@@ -287,6 +286,8 @@ class vp_payment_wc extends WC_Payment_Gateway {
 
         // Empty awaiting payment session
         unset($_SESSION['order_awaiting_payment']);
+
+        $this->vp->logout();
 
         // Return thankyou redirect
         return array(
@@ -427,7 +428,6 @@ class vp_payment_wc extends WC_Payment_Gateway {
     }
 
     private function _action_get_shipping_details() {
-        global $woocommerce;
         if ($this->vp->isParent())
             $result = $this->vp->getShippingDetailsBySelectedChild();
         else
@@ -451,10 +451,12 @@ class vp_payment_wc extends WC_Payment_Gateway {
             $status = false;
             if(function_exists(wc_add_notice))
                 wc_add_notice($data['ErrorMessage'],'error');
-            else
-                $woocommerce->add_error($data['ErrorMessage']);
-        }
+            else {
+                global $woocommerce;
+                $woocommerce->add_error(__('Payment error:', 'woothemes') . $data['ErrorMessage']);
+            }
 
+        }
         $this->sendJSON($status, $data['ErrorMessage'], $data);
     }
 

@@ -122,11 +122,11 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
                     // Chosen Method
                     if ( isset( WC()->session->chosen_payment_method ) && isset( $available_gateways[ WC()->session->chosen_payment_method ] ) ) {
-                        $available_gateways[ WC()->session->chosen_payment_method ]->set_current();
+                     //   $available_gateways[ WC()->session->chosen_payment_method ]->set_current();
                     } elseif ( isset( $available_gateways[ get_option( 'woocommerce_default_gateway' ) ] ) ) {
-                        $available_gateways[ get_option( 'woocommerce_default_gateway' ) ]->set_current();
+                     //   $available_gateways[ get_option( 'woocommerce_default_gateway' ) ]->set_current();
                     } else {
-                        current( $available_gateways )->set_current();
+                    //    current( $available_gateways )->set_current();
                     }
 
                     foreach ( $available_gateways as $gateway ) {

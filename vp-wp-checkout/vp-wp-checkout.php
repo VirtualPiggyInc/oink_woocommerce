@@ -2,8 +2,8 @@
 /*
 Plugin Name: Oink
 Plugin URI: https://github.com/VirtualPiggyInc/oink_woocommerce
-Description: Now children and teens can shop safely with the Oink payment gateway for Woocommerce and Shopp.
-Author: Oink Integration Team
+Description: Oink payment gateway for Woocommerce and Shopp
+Author: The Oink Integration Team
 Author URI: http://oink.com
 Version: 1.0.0
 */

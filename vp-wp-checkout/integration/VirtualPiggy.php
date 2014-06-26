@@ -59,13 +59,16 @@ class VirtualPiggy {
         $userDTO->username = $username;
         $userDTO->Token = $user->Token;
         $userDTO->UserType = $user->UserType;
-
         if ($userDTO->UserType == VirtualPiggy::USER_TYPE_PARENT) {
             $userDTO->childs = $this->getAllChilds($user->Token);
             $userDTO->payment = $this->getAllPaymentAccounts($user->Token);
         }
 
         $this->user = $_SESSION[self::SESSION_FIELD] = $userDTO;
+        if ($userDTO->UserType == VirtualPiggy::USER_TYPE_CHILD) {
+            $result = $this->getCurrentChildShippingDetails();
+            $userDTO->ErrorMessage = $result->ErrorMessage;
+        }
 
         return true;
     }
@@ -95,6 +98,8 @@ class VirtualPiggy {
             $error = $this->user->childs->ErrorMessage;
         else if ($this->user->payment->ErrorMessage)
             $error = $this->user->payment->ErrorMessage;
+        else if ($this->user->ErrorMessage)
+            $error = $this->user->ErrorMessage;
         return $error;
     }
     public function getUserData() {
@@ -112,7 +117,6 @@ class VirtualPiggy {
         } else {
             $dto['role'] = self::USER_TYPE_CHILD;
         }
-
         if ($this->getErrorMessage()) {
             $dto['errorMessage'] = $this->getErrorMessage();
         }
@@ -128,7 +132,7 @@ class VirtualPiggy {
         if ($this->isParent() && isset($user['payment']) && is_array($user['payment'])) {
             foreach ($user['payment'] as $payment) {
                 $payment = (array)$payment;
-                $dto['payment'][$payment['Type']] = $payment['Name'];
+                $dto['payment'][] = $payment['Name'];
             }
         }
 

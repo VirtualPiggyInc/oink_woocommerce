@@ -106,7 +106,7 @@ window.VPCart = (function ($) {
         },
         doLogin: function () {
             var user, pass;
-
+            this.clearErrors('#virtual-piggy-errors-container');
             if (!window.VPCart) {
                 window.VPCart.init();
             }
@@ -172,7 +172,6 @@ window.VPCart = (function ($) {
             $(element).empty();
         },
         afterLogin: function (success, message, data) {
-            this.clearErrors('#virtual-piggy-errors-container');
             if (!success) {
                 this.errorMessage('#virtual-piggy-errors-container', message);
                 this.hideLoading();
