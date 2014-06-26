@@ -3,7 +3,7 @@
 Plugin Name: Oink
 Plugin URI: https://github.com/VirtualPiggyInc/oink_woocommerce
 Description: Oink payment gateway for Woocommerce and Shopp
-Author: The Oink Integration Team
+Author: Oink
 Author URI: http://oink.com
 Version: 1.0.0
 */
