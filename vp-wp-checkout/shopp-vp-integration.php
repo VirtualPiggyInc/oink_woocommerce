@@ -246,5 +246,5 @@ function vp_parse_request() {
 
 get_vp_payment();
 
-add_action('init', 'vp_init', 10);
+add_action('init', 'vp_init',0);
 add_action('parse_request', 'vp_parse_request');

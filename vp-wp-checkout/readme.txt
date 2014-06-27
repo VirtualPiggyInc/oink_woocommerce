@@ -1,4 +1,4 @@
-=== VirtualPiggy Payment gateway ===
+=== Oink Payment gateway ===
 Contributors: Developer-blog
 Tags: payment,module,woocommerce,shopp
 Requires at least: 3.0
@@ -8,7 +8,7 @@ Stable tag: 0.0.0
 This plugin only works in WooCommerce 2.0 or newer
 
 == Description ==
-VirtualPiggy payment gateway for WooCommerce
+Oink payment gateway for WooCommerce
 
 == Installation ==
 

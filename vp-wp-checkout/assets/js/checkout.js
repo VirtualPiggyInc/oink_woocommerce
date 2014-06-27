@@ -26,10 +26,10 @@ window.VPCheckout = (function ($) {
             }
             var self = this;
             self.resetForm();
+            self.view.hideShippingForm();
             self.isLogged(function (isLogged, info) {
                 if (!isLogged) {
                     self.view.init();
-                    self.resetPayment();
                     self.initEvents();
                 } else {
                     self.view.init();
@@ -52,7 +52,46 @@ window.VPCheckout = (function ($) {
             var view = this.view;
 
             $(document)
+                .on('DOMNodeInserted', function(e) {
+                    if ($(e.target).is('#order_review')) {
+                        self.isLogged(function (isLogged, data) {
+                            if (!isLogged){
+                                self.resetPayment();
+                                self.view.addLauncherButton();
+                            }
+                            else {
+                                view.showLoading();
+                                self.afterLogin(isLogged, '', data);
+                            }
+                        });
+                    }
+                    if ($(e.target).is('.woocommerce-error')) {
+                        $('#place_order').hide();
+                        var button = '<button class="button alt" style="float:right" onclick="window.location.reload(true);">Return To Checkout</button>';
+                        $('.place-order').append(button);
+                    }
+
+                })
+                .delegate ('input:radio', 'change', function(e) {
+                    if (! $(e.target).is('#payment_method_virtual-piggy')) {
+                        self.resetForm();
+                    }
+                    else {
+                        self.isLogged(function (isLogged, data) {
+                            if (!isLogged){
+                                view.showContentBox();
+                                view.showLoginBox();
+                            }
+                            else {
+                                view.showLoading();
+                                self.afterLogin(isLogged, '', data);
+                            }
+                        });
+                    }
+                })
+
                 .delegate('.virtualpiggy-button', 'click', function () {
+                    view.hideShippingForm();
                     self.isLogged(function (isLogged, data) {
                         if (!isLogged){
                             view.showContentBox();
@@ -64,8 +103,6 @@ window.VPCheckout = (function ($) {
                         }
                     });
                 })
-
-
                 .delegate('#vp-close', 'click', function () {
                     self.resetForm();
                     self.resetPayment();
@@ -256,7 +293,6 @@ window.VPCheckout = (function ($) {
             $('#payment_method_virtual-piggy').prop('checked', true);
             this.view.hideShippingForm();
             this.view.hidePaymentOptions();
-            this.view.hideLauncherButton();
             if (this.isParent() && (typeof this.data.selectedChild === "undefined"))
                 this.view.showChildSelector(this.data.childs);
             else {
@@ -341,11 +377,8 @@ window.VPCheckout = (function ($) {
             return $contentBox.find('.vp-button-container');
         },
         addLauncherButton: function () {
-            var $button = $('<img/>')
-                .attr('src', this.BUTTON_URL)
-                .addClass('virtualpiggy-button');
-            $('#payment').prepend($button);
             $('.payment_method_virtual-piggy').hide();
+            $('.virtualpiggy-button').appendTo('.payment_methods');
         },
 
         createLabel: function ($field, label) {
@@ -389,7 +422,7 @@ window.VPCheckout = (function ($) {
             var contentBox = this.getContentBox();
             this.cleanBox();
             this.showContentBox()
-            $(".virtualpiggy-loginbox").css('height', "300px");
+            $(".virtualpiggy-loginbox").animate({height: "300px"}, 500);
             var $fields = $('<div/>')
                 .addClass('virtualpiggy-form')
                 .addClass('virtualpiggy-form-child')
@@ -469,29 +502,10 @@ window.VPCheckout = (function ($) {
             }
         },
         hideWooCommerceShippingForm: function () {
-            var fields = VPCheckout.view.getWooCommerceFilledForm({});
-            fields['#billing_company'] = '';
-            fields['#billing_address_2'] = '';
-
-            for (var f in fields) {
-                $(f).hide();
-                $('label[for=' + f.replace(/#/, '') + ']').hide();
-            }
-
-            $('#shiptobilling-checkbox').hide();
-            $('label[for=shiptobilling-checkbox]').hide();
-            $('#payment_method_virtual-piggy').prop('checked', true);
+            $('#customer_details').hide();
         },
         showWooCommerceShippingForm: function () {
-            var fields = VPCheckout.view.getWooCommerceFilledForm({});
-
-            for (var f in fields) {
-                $(f).show();
-                $('label[for=' + f.replace(/#/, '') + ']').show();
-            }
-            $('#shiptobilling-checkbox').show();
-            $('label[for=shiptobilling-checkbox]').show();
-            $('#payment_method_virtual-piggy').prop('checked', false);
+            $('#customer_details').show();
         },
         hidePaymentOptions: function () {
             if (this.isShopp())
@@ -569,13 +583,10 @@ window.VPCheckout = (function ($) {
         },
         getFilledForm: function (data) {
             var customer;
-            if (!data.ParentName) {
-                customer = (data.ParentName || '').split(/\s/);
+            customer = (data.ParentName || '').split(/\s/);
 
-                data.Name = customer.shift();
-                data.LastName = customer.join(' ');
-            }
-
+            data.ParentName = customer.shift();
+            data.ParentLastName = customer.join(' ');
             if (this.isShopp()) {
                 return this.getShoppFilledForm(data)
             } else {

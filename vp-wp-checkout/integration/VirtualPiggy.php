@@ -59,17 +59,15 @@ class VirtualPiggy {
         $userDTO->username = $username;
         $userDTO->Token = $user->Token;
         $userDTO->UserType = $user->UserType;
+        $this->user = $_SESSION[self::SESSION_FIELD] = $userDTO;
+
         if ($userDTO->UserType == VirtualPiggy::USER_TYPE_PARENT) {
             $userDTO->childs = $this->getAllChilds($user->Token);
             $userDTO->payment = $this->getAllPaymentAccounts($user->Token);
         }
-
-        $this->user = $_SESSION[self::SESSION_FIELD] = $userDTO;
-        if ($userDTO->UserType == VirtualPiggy::USER_TYPE_CHILD) {
-            $result = $this->getCurrentChildShippingDetails();
-            $userDTO->ErrorMessage = $result->ErrorMessage;
-        }
-
+        else
+            $userDTO->address = $this->getCurrentChildShippingDetails();
+        
         return true;
     }
 
@@ -98,10 +96,11 @@ class VirtualPiggy {
             $error = $this->user->childs->ErrorMessage;
         else if ($this->user->payment->ErrorMessage)
             $error = $this->user->payment->ErrorMessage;
-        else if ($this->user->ErrorMessage)
-            $error = $this->user->ErrorMessage;
+        else if ($this->user->address->ErrorMessage)
+            $error = $this->user->address->ErrorMessage;
         return $error;
     }
+
     public function getUserData() {
         $user = (array)$this->user;
         $dto = array(
@@ -117,6 +116,7 @@ class VirtualPiggy {
         } else {
             $dto['role'] = self::USER_TYPE_CHILD;
         }
+
         if ($this->getErrorMessage()) {
             $dto['errorMessage'] = $this->getErrorMessage();
         }
