@@ -16,6 +16,8 @@ add_action('plugins_loaded', 'init_vp_payment', 0);
 
 add_action('woocommerce_after_checkout_form', 'oink_checkout_hidden_inputs_view', 0);
 
+add_action('woocommerce_review_order_before_submit', 'oink_checkout_button',0);
+
 add_action('woocommerce_after_cart_contents', 'oink_cart_button_view', 0);
 
 add_action('woocommerce_after_cart_totals', 'vp_cart_init');
@@ -30,7 +32,17 @@ function vp_cart_init() {
         'baseURL' => get_site_url()
     ));
 }
-
+function oink_checkout_button() {
+    $oinkRadioEnabled = false;
+    $oinkButtonEnabled = false;
+    $vpGateway = get_vp_payment();
+    if(isset($vpGateway) && $vpGateway->isButtonShown() === true)
+        $oinkButtonEnabled = true;
+    if(isset($vpGateway) && $vpGateway->isRadioShown() === true)
+        $oinkRadioEnabled = true;
+    if ($oinkRadioEnabled && $oinkButtonEnabled)
+        echo '<img src="//cdn.virtualpiggy.com/public/images/checkout-145x42.png" class="virtualpiggy-button">';
+}
 function oink_checkout_hidden_inputs_view() {
     $oinkRadioEnabled = false;
     $oinkButtonEnabled = false;

@@ -154,7 +154,7 @@ class vp_payment_wc extends WC_Payment_Gateway {
             'description' => array(
                 'title' => __('Customer Message', 'woothemes'),
                 'type' => 'textarea',
-                'default' => 'Checkout with Oink.',
+                'default' => '',
                 'description' => 'Oink checkout description.'
             ),
             'HeaderNamespace' => array(
@@ -263,6 +263,7 @@ class vp_payment_wc extends WC_Payment_Gateway {
             else {
                 $woocommerce->add_error(__('Payment error:', 'woothemes') . $e->getMessage());
             }
+            $this->vp->logout();
             return array(
                 'result' => 'fail'
             );

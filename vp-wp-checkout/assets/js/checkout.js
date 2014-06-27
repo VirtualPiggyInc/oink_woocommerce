@@ -52,6 +52,24 @@ window.VPCheckout = (function ($) {
             var view = this.view;
 
             $(document)
+                .ready(function () {
+                    /*Depending on the WordPress version, our js may be executed before the WooCommerce js. This ensures our js is executed last*/
+                    setTimeout(function() {
+                        if ($('#payment_method_virtual-piggy').prop('checked') == true) {
+                            self.resetPayment();
+                        }
+                    }, 500);
+                })
+                .delegate('#place_order', 'click', function() {
+                    /*WooCommerce errors need time to be generated*/
+                    setTimeout(function() {
+                        if ($('.woocommerce-error').length != 0) {
+                            $('#place_order').hide();
+                            var button = '<button class="button alt" style="float:right" onclick="window.location.reload(true);">Return To Checkout</button>';
+                            $('.place-order').append(button);
+                        }
+                    }, 2000);
+                })
                 .delegate('.virtualpiggy-button', 'click', function () {
                     self.isLogged(function (isLogged, data) {
                         if (!isLogged){
@@ -64,8 +82,6 @@ window.VPCheckout = (function ($) {
                         }
                     });
                 })
-
-
                 .delegate('#vp-close', 'click', function () {
                     self.resetForm();
                     self.resetPayment();
@@ -256,7 +272,6 @@ window.VPCheckout = (function ($) {
             $('#payment_method_virtual-piggy').prop('checked', true);
             this.view.hideShippingForm();
             this.view.hidePaymentOptions();
-            this.view.hideLauncherButton();
             if (this.isParent() && (typeof this.data.selectedChild === "undefined"))
                 this.view.showChildSelector(this.data.childs);
             else {
@@ -341,11 +356,8 @@ window.VPCheckout = (function ($) {
             return $contentBox.find('.vp-button-container');
         },
         addLauncherButton: function () {
-            var $button = $('<img/>')
-                .attr('src', this.BUTTON_URL)
-                .addClass('virtualpiggy-button');
-            $('#payment').prepend($button);
             $('.payment_method_virtual-piggy').hide();
+            $('.virtualpiggy-button').appendTo('.payment_methods');
         },
 
         createLabel: function ($field, label) {
