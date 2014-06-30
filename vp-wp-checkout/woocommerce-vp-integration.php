@@ -154,7 +154,11 @@ class vp_payment_wc extends WC_Payment_Gateway {
             'description' => array(
                 'title' => __('Customer Message', 'woothemes'),
                 'type' => 'textarea',
+<<<<<<< HEAD
                 'default' => 'Checkout with Oink',
+=======
+                'default' => '',
+>>>>>>> origin/woocomm-and-shopp-fixes
                 'description' => 'Oink checkout description.'
             ),
             'HeaderNamespace' => array(

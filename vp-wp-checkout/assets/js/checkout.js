@@ -52,6 +52,7 @@ window.VPCheckout = (function ($) {
             var view = this.view;
 
             $(document)
+<<<<<<< HEAD
                 .on('DOMNodeInserted', function(e) {
                     if ($(e.target).is('#order_review')) {
                         self.isLogged(function (isLogged, data) {
@@ -90,6 +91,26 @@ window.VPCheckout = (function ($) {
                     }
                 })
 
+=======
+                .ready(function () {
+                    /*Depending on the WordPress version, our js may be executed before the WooCommerce js. This ensures our js is executed last*/
+                    setTimeout(function() {
+                        if ($('#payment_method_virtual-piggy').prop('checked') == true) {
+                            self.resetPayment();
+                        }
+                    }, 500);
+                })
+                .delegate('#place_order', 'click', function() {
+                    /*WooCommerce errors need time to be generated*/
+                    setTimeout(function() {
+                        if ($('.woocommerce-error').length != 0) {
+                            $('#place_order').hide();
+                            var button = '<button class="button alt" style="float:right" onclick="window.location.reload(true);">Return To Checkout</button>';
+                            $('.place-order').append(button);
+                        }
+                    }, 2000);
+                })
+>>>>>>> origin/woocomm-and-shopp-fixes
                 .delegate('.virtualpiggy-button', 'click', function () {
                     view.hideShippingForm();
                     self.isLogged(function (isLogged, data) {
