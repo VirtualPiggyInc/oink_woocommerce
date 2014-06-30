@@ -67,7 +67,7 @@ class VirtualPiggy {
         }
         else
             $userDTO->address = $this->getCurrentChildShippingDetails();
-        
+
         return true;
     }
 
