@@ -192,7 +192,7 @@ window.VPCart = (function ($) {
 
     VPCart.view = {
         LOADING_URL: '/wp-content/plugins/vp-wp-checkout/assets/images/loading.gif',
-        BUTTON_URL: '//cdn.virtualpiggy.com/public/images/accepting-150x49.png',
+        BUTTON_URL: '//cdn.virtualpiggy.com/public/images/checkout-145x42.png',
         LOGO_URL: '//cdn.virtualpiggy.com/public/images/checkout-logo-192x75.png',
         $form: null,
         $contentBox: null,
