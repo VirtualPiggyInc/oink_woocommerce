@@ -219,7 +219,7 @@ window.VPCart = (function ($) {
             popup_content +=        '<div id="vp-close"></div>';
             popup_content +=            '<div class="col-2">';
             popup_content +=                '<form id="virtual-piggy-login-form" method="post">';
-            popup_content +=                    '<fieldset>';
+            popup_content +=                    '<fieldset id="virtualpiggy-fieldset">';
             popup_content +=                        '<ul class="form-list">';
             popup_content +=                            '<li>';
             popup_content +=                                '<div class="input-box">';
@@ -244,7 +244,7 @@ window.VPCart = (function ($) {
             popup_content +=            '<div id="vp-loader" style="display:none"></div>';
             popup_content +=            '<div id ="VP-info">';
             popup_content +=                '<div class="what-is-VP bold">What is Oink?</div>';
-            popup_content +=                '<div class="what-is-VP-message dark-grey">Oink is the safe way for kids and teens to <br/>save, shop, and give online. <a class="blue" href="//oink.com/">Learn more</a></div>';
+            popup_content += '<div class="what-is-VP-message dark-grey">Oink is the safe way for kids and teens to <br/>save, shop, and give online. <a class="blue" href="//oink.com/how-it-works" target="_blank">Learn more</a></div>';
             popup_content +=                '<a id="sign-up-button" target="_blank" href="//users.virtualpiggy.com/registration">Sign Up</a></div>';
             popup_content +=            '</div>';
             popup_content +=        '</div>';
