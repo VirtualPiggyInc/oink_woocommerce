@@ -359,7 +359,7 @@ window.VPCheckout = (function ($) {
             popup_content +=            '<div id="vp-loader" style="display:none"></div>';
             popup_content +=            '<div id ="VP-info">';
             popup_content +=                '<div class="what-is-VP bold">What is Oink?</div>';
-            popup_content += '<div class="what-is-VP-message dark-grey">Oink is the safe way for kids and teens to <br/>save, shop, and give online. <a class="blue" href="//oink.com/how-it-works" target="_blank">Learn more</a></div>';
+            popup_content +=                '<div class="what-is-VP-message dark-grey">Oink is the safe way for kids and teens to <br/>save, shop, and give online. <a class="blue" href="//oink.com/">Learn more</a></div>';
             popup_content +=                '<a id="sign-up-button" target="_blank" href="//users.virtualpiggy.com/registration">Sign Up</a></div>';
             popup_content +=            '</div>';
             popup_content +=        '</div>';
@@ -490,7 +490,6 @@ window.VPCheckout = (function ($) {
             if (this.isShopp()) {
                 $('#checkout ul').hide();
             } else {
-                $('#customer_details').hide();
                 this.hideWooCommerceShippingForm();
             }
         },
@@ -503,6 +502,7 @@ window.VPCheckout = (function ($) {
         },
         hideWooCommerceShippingForm: function () {
             $('#customer_details').hide();
+            $('#ship-to-different-address-checkbox').attr('checked', false);
         },
         showWooCommerceShippingForm: function () {
             $('#customer_details').show();
@@ -599,7 +599,7 @@ window.VPCheckout = (function ($) {
                 $(key).val(value);
             });
             try {
-                $("#billing_country").trigger("liszt:updated");
+                $("#billing_country").trigger("list:updated");
             } catch (e) {
 
             }
